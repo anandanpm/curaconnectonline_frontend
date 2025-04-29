@@ -1,0 +1,158 @@
+.appointment-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .doctor-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .doctor-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+
+    .doctor-name-container {
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        margin: 0 0 5px 0;
+      }
+
+      .doctor-specialty {
+        margin: 0;
+        color: #666;
+        font-size: 0.9em;
+      }
+    }
+  }
+
+  .date-selector {
+    margin-bottom: 20px;
+
+    .date-buttons {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+
+      .date-button {
+        background-color: #f0f0f0;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &.selected {
+          background-color: #007E85;
+          color: white;
+        }
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+  }
+
+  .slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .slot-button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:hover {
+      background-color: #e0e0e0;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #007E85;
+    }
+
+    &.booked {
+      background-color: #ffcccb;
+      cursor: not-allowed;
+    }
+
+    .slot-time {
+      font-weight: bold;
+    }
+  }
+
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+
+    h3 {
+      margin-top: 0;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:first-child {
+          background-color: #4CAF50;
+          color: white;
+        }
+
+        &:last-child {
+          background-color: #f44336;
+          color: white;
+        }
+      }
+    }
+  }
+}

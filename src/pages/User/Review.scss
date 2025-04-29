@@ -1,0 +1,138 @@
+// RatingReview.scss
+$primary-color: #4a90e2;
+$secondary-color: #f0f0f0;
+$text-color: #333;
+$star-color: #ffc107;
+$star-hover-color: #ffd54f;
+$error-color: #e53935;
+$success-color: #2e7d32;
+
+.rating-review-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .error-message, .success-message {
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .error-message {
+    background-color: #ffebee;
+    color: $error-color;
+    border: 1px solid #ef9a9a;
+  }
+
+  .success-message {
+    background-color: #e8f5e9;
+    color: $success-color;
+    border: 1px solid #a5d6a7;
+    animation: fadeOut 1.5s ease-in-out forwards;
+    animation-delay: 1s;
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .rating-review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .rating-section {
+      text-align: center;
+
+      h3 {
+        color: $text-color;
+        margin-bottom: 10px;
+      }
+
+      .star-rating {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+
+        .star {
+          font-size: 2rem;
+          color: $secondary-color;
+          cursor: pointer;
+          transition: color 0.2s ease;
+
+          &.active,
+          &:hover {
+            color: $star-hover-color;
+          }
+        }
+      }
+
+      .rating-text {
+        margin-top: 10px;
+        color: $text-color;
+        font-size: 0.9rem;
+      }
+    }
+
+    .error-text {
+      color: $error-color;
+      font-size: 0.85rem;
+      margin-top: 5px;
+      margin-bottom: 0;
+      text-align: left;
+    }
+
+    .review-section {
+      h3 {
+        color: $text-color;
+        margin-bottom: 10px;
+      }
+
+      .review-textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid $secondary-color;
+        border-radius: 4px;
+        resize: vertical;
+        font-size: 1rem;
+        line-height: 1.5;
+
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+          box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+        }
+      }
+    }
+
+    .submit-button {
+      background-color: $primary-color;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+
+      &:hover:not(:disabled) {
+        background-color: darken($primary-color, 10%);
+      }
+
+      &:disabled {
+        background-color: $secondary-color;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

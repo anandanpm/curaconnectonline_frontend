@@ -1,0 +1,231 @@
+
+// Variables for consistent theming
+$primary-color: #1976d2;        // Blue for primary actions
+$secondary-color: #dc004e;      // Red for secondary/error actions
+$background-color: #f4f6f8;     // Light gray background
+$paper-background: #ffffff;     // White for paper
+$text-color: #333333;           // Dark gray for text
+$border-color: #e0e0e0;         // Light gray for borders
+$shadow-color: rgba(0, 0, 0, 0.1); // Subtle shadow
+
+// Prescription Page Container
+.prescription-page {
+  padding: 1.5rem;
+  background-color: $background-color;
+  min-height: 100vh;
+}
+
+// Prescription Paper
+.prescription-page__paper {
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  background-color: $paper-background;
+  box-shadow: 0 4px 6px $shadow-color;
+  transition: box-shadow 0.3s ease;
+  &:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Form Header
+.prescription-page__header {
+  font-size: 2rem;
+  font-weight: 600;
+  color: $primary-color;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+// Medicine Entry
+.prescription-page__medicine-entry {
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: lighten($paper-background, 2%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px $shadow-color;
+  }
+}
+
+// Input Fields
+.prescription-input__field {
+  margin-bottom: 1rem;
+  .MuiTextField-root {
+    width: 100%;
+    .MuiInputBase-root {
+      border-radius: 6px;
+      background-color: #fafafa;
+      &:hover fieldset {
+        border-color: $primary-color;
+      }
+    }
+    .Mui-focused fieldset {
+      border-color: $primary-color !important;
+    }
+    .MuiFormLabel-root {
+      color: $text-color;
+      &.Mui-focused {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+// Time Buttons
+.prescription-page__time-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  button {
+    flex: 1;
+    min-width: 80px;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    &:hover {
+      transform: translateY(-2px);
+    }
+    &.MuiButton-containedPrimary { // Morning
+      background-color: $primary-color;
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+    &.MuiButton-outlinedPrimary {
+      border-color: $primary-color;
+      color: $primary-color;
+      &:hover {
+        background-color: lighten($primary-color, 40%);
+      }
+    }
+    &.MuiButton-containedSecondary { // Afternoon
+      background-color: #f57c00; // Orange
+      &:hover {
+        background-color: darken(#f57c00, 10%);
+      }
+    }
+    &.MuiButton-outlinedSecondary {
+      border-color: #f57c00;
+      color: #f57c00;
+      &:hover {
+        background-color: lighten(#f57c00, 40%);
+      }
+    }
+    &.MuiButton-containedError { // Evening
+      background-color: #0288d1; // Lighter blue
+      &:hover {
+        background-color: darken(#0288d1, 10%);
+      }
+    }
+    &.MuiButton-outlinedError {
+      border-color: #0288d1;
+      color: #0288d1;
+      &:hover {
+        background-color: lighten(#0288d1, 40%);
+      }
+    }
+    &.MuiButton-containedInfo { // Night
+      background-color: #8e24aa; // Purple
+      &:hover {
+        background-color: darken(#8e24aa, 10%);
+      }
+    }
+    &.MuiButton-outlinedInfo {
+      border-color: #8e24aa;
+      color: #8e24aa;
+      &:hover {
+        background-color: lighten(#8e24aa, 40%);
+      }
+    }
+    
+    // Remove button
+    &:last-child {
+      margin-left: auto;
+      color: $secondary-color;
+      border-color: $secondary-color;
+      &.MuiButton-outlined {
+        &:hover {
+          background-color: lighten($secondary-color, 40%);
+        }
+      }
+    }
+  }
+}
+
+// Action Buttons
+.prescription-page__actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 1rem;
+  button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    &:hover {
+      transform: translateY(-2px);
+    }
+    &.MuiButton-outlinedPrimary { // Add Medicine
+      border-color: $primary-color;
+      color: $primary-color;
+      &:hover {
+        background-color: lighten($primary-color, 40%);
+      }
+    }
+    &.MuiButton-containedPrimary { // Submit Prescription
+      background-color: $primary-color;
+      color: $paper-background;
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+      &.Mui-disabled {
+        background-color: lighten($primary-color, 20%);
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+}
+
+// Snackbar 
+.prescription-snackbar {
+  .MuiAlert-root {
+    border-radius: 6px;
+    box-shadow: 0 2px 4px $shadow-color;
+  }
+}
+
+// Responsive Design
+@media (max-width: 600px) {
+  .prescription-page__paper {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+  .prescription-page__header {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .prescription-page__medicine-entry {
+    padding: 0.75rem;
+  }
+  .prescription-page__time-buttons {
+    button {
+      padding: 0.4rem;
+      font-size: 0.8rem;
+      min-width: 60px;
+    }
+  }
+  .prescription-page__actions {
+    flex-direction: column;
+    button {
+      width: 100%;
+      padding: 0.6rem;
+    }
+  }
+}

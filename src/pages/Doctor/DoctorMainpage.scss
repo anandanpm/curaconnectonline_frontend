@@ -1,0 +1,136 @@
+// Variables
+$primary-color: #40A3C0;
+$text-primary: #333333;
+$text-secondary: #666666;
+$background-light: #FFFFFF;
+$spacing-base: 1rem;
+$container-width: 1200px;
+$border-radius: 0.5rem;
+
+.doc-mainpage {
+  background-color: $background-light;
+}
+
+// Hero Section
+.hero {
+  padding: $spacing-base * 4 0;
+
+  &__container {
+    max-width: $container-width;
+    margin: 0 auto;
+    padding: 0 $spacing-base;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-base * 2;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+
+  &__content {
+    .hero__title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: $text-primary;
+      margin-bottom: $spacing-base * 2;
+      line-height: 1.2;
+    }
+
+    .hero__text {
+      color: $text-secondary;
+
+      p {
+        margin-bottom: $spacing-base;
+        line-height: 1.6;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  &__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-content {
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+}
+
+// Services Section
+.services {
+  padding: $spacing-base * 4 0;
+  background-color: $background-light;
+
+  &__title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: $text-primary;
+    margin-bottom: $spacing-base * 3;
+  }
+
+  &__grid {
+    max-width: $container-width;
+    margin: 0 auto;
+    padding: 0 $spacing-base;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-base * 2;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.service-card {
+  background: $background-light;
+  border-radius: $border-radius;
+  padding: $spacing-base * 1.5;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  &__image {
+    margin-bottom: $spacing-base;
+    display: flex;
+    justify-content: center;
+
+    &-content {
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: $spacing-base;
+    text-transform: capitalize;
+  }
+
+  &__description {
+    color: $text-secondary;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+}

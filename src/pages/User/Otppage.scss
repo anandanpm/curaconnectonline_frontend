@@ -1,0 +1,148 @@
+.otp-verification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f5f5f5;
+
+  .otp-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+
+    h1 {
+      color: #333;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .illustration {
+      margin: 1.5rem 0;
+
+      img {
+        max-width: 200px;
+        height: auto;
+        animation: pulse 1.5s infinite;
+      }
+    }
+
+    .otp-inputs {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+
+      input {
+        width: 50px;
+        height: 50px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #333;
+        transition: all 0.2s ease;
+
+        &:focus {
+          border-color: #009688;
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(0, 150, 136, 0.2);
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+    }
+
+    .resend {
+      margin: 1.5rem 0;
+      color: #666;
+      font-size: 0.9rem;
+
+      .resend-link {
+        background: none;
+        border: none;
+        color: #009688;
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 0;
+        margin-left: 4px;
+        font-size: 0.9rem;
+
+        &:hover {
+          color: darken(#009688, 10%);
+        }
+      }
+    }
+
+    .submit-button {
+      background-color: #009688;
+      /* Lexa-terra color */
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      font-family: 'Lexend Tera';
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: darken(#009688, 5%);
+        /* Adjust darken amount as needed */
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .otp-verification {
+    .otp-content {
+      padding: 1.5rem;
+
+      .otp-inputs {
+        gap: 0.5rem;
+
+        input {
+          width: 45px;
+          height: 45px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.1);
+  }
+}

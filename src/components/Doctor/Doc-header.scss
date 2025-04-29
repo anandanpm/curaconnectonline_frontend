@@ -1,0 +1,894 @@
+
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@400;600;700&display=swap');
+
+// Variables
+$color-white: #fff;
+$color-black: #000;
+$color-primary: #008080;
+$color-primary-light: #00a9a5;
+$color-primary-dark: #007E85;
+$color-secondary: #6EAB36;
+$color-tertiary: #F2994A;
+$color-gray-100: #f8f9fa;
+$color-gray-200: #e9ecef;
+$color-gray-300: #dee2e6;
+$color-gray-400: #ced4da;
+$color-gray-500: #adb5bd;
+$color-gray-600: #6c757d;
+$color-gray-700: #495057;
+$color-gray-800: #343a40;
+$color-gray-900: #212529;
+$color-red: #dc3545;
+$color-green: #28a745;
+$color-blue: #007bff;
+$color-orange: #fd7e14;
+$color-purple: #6f42c1;
+$color-teal: #20c997;
+$color-info: #17a2b8;
+$header-height: 5rem;
+$mobile-header-height: 4rem;
+$box-shadow: 0 2px 8px rgba($color-black, 0.1);
+$box-shadow-hover: 0 4px 12px rgba($color-black, 0.15);
+$box-shadow-dropdown: 0 5px 25px rgba($color-black, 0.15);
+$transition-standard: all 0.3s ease;
+$border-radius: 8px;
+$border-radius-sm: 4px;
+$border-radius-lg: 12px;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $timing-function: ease) {
+  transition: $property $duration $timing-function;
+}
+
+@mixin button($background, $color) {
+  background-color: $background;
+  color: $color;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: $border-radius;
+  font-family: 'Lexend Tera', sans-serif;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  @include transition;
+
+  &:hover {
+    background-color: color.adjust($background, $lightness: -10%);
+    transform: translateY(-2px);
+    box-shadow: $box-shadow-hover;
+  }
+}
+
+@mixin gradient-button {
+  background: linear-gradient(90deg, $color-primary-dark 0%, $color-primary-light 100%);
+  color: $color-white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: $border-radius;
+  font-family: 'Lexend Tera', sans-serif;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  @include transition;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $box-shadow-hover;
+    opacity: 0.95;
+  }
+}
+
+@mixin notification-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background-color: $color-red;
+  color: $color-white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba($color-black, 0.2);
+  animation: pulse 1.5s infinite;
+}
+
+// Keyframes
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  
+  70% {
+    transform: scale(0.9);
+  }
+  
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Doctor Header Styles
+.doc-header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: $header-height;
+  background-color: $color-white;
+  box-shadow: $box-shadow;
+
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    @media (max-width: 768px) {
+      padding: 0 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: $mobile-header-height;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    white-space: nowrap;
+    font-family: 'Lexend Tera', sans-serif;
+    font-size: 1.8rem;
+    animation: fadeInDown 0.5s ease-out;
+    z-index: 101;
+
+    img {
+      height: 2.5rem;
+      margin-right: 0.5rem;
+      animation: pulse 2s infinite;
+
+      @media (max-width: 768px) {
+        height: 2rem;
+      }
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: $color-primary;
+
+      @media (max-width: 768px) {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  &__mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: $color-gray-800;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 200;
+    @include transition;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__mobile-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+      position: fixed;
+      top: $mobile-header-height;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: calc(100vh - #{$mobile-header-height});
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      background-color: $color-white;
+      box-shadow: -2px 0 5px rgba($color-black, 0.1);
+      padding: 2rem 1rem;
+      @include transition;
+      z-index: 100;
+      overflow-y: auto;
+
+      &--active {
+        right: 0;
+        animation: slideInRight 0.3s forwards;
+      }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+
+    ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      gap: 2rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+      }
+    }
+
+    li {
+      margin: 0;
+      position: relative;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        border-bottom: 1px solid rgba($color-gray-300, 0.5);
+      }
+      
+      .notification-badge {
+        @include notification-badge;
+        top: -4px;
+        right: -10px;
+        
+        @media (max-width: 768px) {
+          top: 50%;
+          right: 1rem;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    a {
+      color: $color-gray-800;
+      text-decoration: none;
+      @include transition(color);
+      font-weight: 500;
+      padding: 0.75rem 0;
+      position: relative;
+      font-family: 'Lexend Tera', sans-serif;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      @media (max-width: 768px) {
+        padding: 1rem 0.5rem;
+        font-size: 1rem;
+      }
+
+      .nav-icon {
+        color: $color-gray-600;
+        @include transition(color);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $color-primary;
+        @include transition(width);
+
+        @media (max-width: 768px) {
+          bottom: -1px;
+        }
+      }
+
+      &:hover,
+      &.active {
+        color: $color-primary;
+
+        .nav-icon {
+          color: $color-primary;
+        }
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+  }
+
+  &__auth {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+  }
+
+  &__btn {
+    @include gradient-button;
+    font-size: 0.9rem;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+    
+    &.signup-btn {
+      background: linear-gradient(90deg, $color-primary-dark 0%, $color-primary-light 100%);
+    }
+    
+    &.login-btn {
+      background: linear-gradient(90deg, $color-primary-dark 0%, $color-primary-light 100%);
+    }
+    
+    &.logout-btn {
+      background: linear-gradient(90deg, $color-gray-700 0%, $color-gray-600 100%);
+      
+      &:hover {
+        background: linear-gradient(90deg, $color-red 0%, darken($color-red, 10%) 100%);
+      }
+    }
+  }
+
+  &__overlay {
+    display: none;
+
+    &--active {
+      display: block;
+      position: fixed;
+      top: $mobile-header-height;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba($color-black, 0.5);
+      z-index: 99;
+      backdrop-filter: blur(2px);
+      animation: fadeIn 0.3s ease;
+    }
+  }
+}
+
+// Notification Center
+.notification-center {
+  position: relative;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.notification-button {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: $color-gray-100;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-gray-700;
+  @include transition;
+  
+  &:hover {
+    background-color: $color-gray-200;
+    color: $color-primary;
+    transform: translateY(-2px);
+  }
+  
+  .notification-count {
+    @include notification-badge;
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 44px;
+    border-radius: $border-radius;
+    justify-content: flex-start;
+    padding: 0 1rem;
+    
+    &::after {
+      content: 'Notifications';
+      margin-left: 0.5rem;
+      font-family: 'Lexend Tera', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .notification-count {
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  width: 320px;
+  max-height: 500px;
+  background-color: $color-white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-dropdown;
+  overflow: hidden;
+  z-index: 1000;
+  animation: bounceIn 0.3s;
+  
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 20%;
+    left: 10%;
+    right: 10%;
+    width: 80%;
+    max-width: none;
+    max-height: 60vh;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    background-color: $color-white;
+    transform: rotate(45deg);
+    box-shadow: -2px -2px 5px rgba($color-black, 0.05);
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+.notification-header {
+  padding: 1rem;
+  border-bottom: 1px solid $color-gray-200;
+  
+  h3 {
+    margin: 0;
+    font-family: 'Lexend Tera', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $color-gray-900;
+  }
+}
+
+.notification-content {
+  overflow-y: auto;
+  max-height: 400px;
+  
+  @media (max-width: 768px) {
+    max-height: calc(60vh - 60px);
+  }
+}
+
+.notification-section {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid $color-gray-200;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    font-family: 'Lexend Tera', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $color-gray-700;
+    
+    .notification-section-count {
+      margin-left: auto;
+      background-color: $color-gray-200;
+      color: $color-gray-700;
+      padding: 0.1rem 0.5rem;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      min-width: 20px;
+      text-align: center;
+    }
+  }
+}
+
+.notification-items {
+  padding: 0 0.5rem;
+}
+
+.notification-item {
+  margin: 0.5rem;
+  padding: 0.75rem;
+  background-color: $color-gray-100;
+  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba($color-black, 0.05);
+  @include transition;
+  
+  &:hover {
+    background-color: rgba($color-primary, 0.05);
+    transform: translateY(-2px);
+  }
+  
+  &-content {
+    flex: 1;
+  }
+  
+  &-title {
+    font-family: 'Lexend Tera', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $color-gray-800;
+    margin-bottom: 0.25rem;
+  }
+  
+  &-detail {
+    font-size: 0.75rem;
+    color: $color-gray-600;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    
+    span {
+      &.date, &.time {
+        background-color: rgba($color-primary, 0.1);
+        color: $color-primary;
+        padding: 0.15rem 0.4rem;
+        border-radius: 4px;
+      }
+      
+      &.count {
+        background-color: rgba($color-purple, 0.1);
+        color: $color-purple;
+        padding: 0.15rem 0.4rem;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+.notification-action-btn {
+  background-color: $color-primary;
+  color: $color-white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  @include transition;
+  font-family: 'Lexend Tera', sans-serif;
+  
+  &:hover {
+    background-color: darken($color-primary, 10%);
+    transform: translateY(-1px);
+  }
+}
+
+.see-all-link {
+  text-align: center;
+  padding: 0.5rem;
+  
+  a {
+    font-size: 0.8rem;
+    color: $color-primary;
+    text-decoration: none;
+    font-weight: 500;
+    font-family: 'Lexend Tera', sans-serif;
+    @include transition;
+    
+    &:hover {
+      color: darken($color-primary, 15%);
+      text-decoration: underline;
+    }
+  }
+}
+
+.empty-notifications {
+  padding: 2rem 1rem;
+  text-align: center;
+  
+  p {
+    color: $color-gray-500;
+    font-size: 0.9rem;
+    margin: 0;
+    font-family: 'Lexend Tera', sans-serif;
+  }
+}
+
+// Toast Notification Styles
+.Toastify__toast-container {
+  z-index: 9999;
+}
+
+.Toastify__toast {
+  border-radius: $border-radius;
+  min-height: auto;
+  padding: 0;
+  box-shadow: $box-shadow-dropdown;
+  overflow: hidden;
+  font-family: 'Lexend Tera', sans-serif;
+  
+  &.custom-toast {
+    background-color: $color-white;
+    
+    &.message-toast {
+      border-left: 4px solid $color-blue;
+    }
+    
+    &.appointment-toast {
+      border-left: 4px solid $color-green;
+    }
+  }
+}
+
+.toast-content {
+  padding: 0.5rem 1rem;
+}
+
+.toast-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  
+  .toast-icon {
+    &:first-child {
+      color: $color-blue;
+    }
+  }
+  
+  span {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: $color-gray-800;
+  }
+}
+
+.toast-message {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: $color-gray-700;
+}
+
+.toast-details {
+  margin: 0.5rem 0;
+  
+  p {
+    margin: 0.25rem 0;
+    font-size: 0.85rem;
+    color: $color-gray-700;
+    
+    strong {
+      font-weight: 600;
+      color: $color-gray-800;
+    }
+  }
+}
+
+.toast-btn {
+  background: linear-gradient(90deg, $color-primary-dark 0%, $color-primary-light 100%);
+  color: $color-white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-family: 'Lexend Tera', sans-serif;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-top: 0.75rem;
+  width: 100%;
+  @include transition;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba($color-black, 0.1);
+    opacity: 0.9;
+  }
+}
+
+// Specific toast types
+.Toastify__toast--info {
+  .toast-icon {
+    color: $color-blue;
+  }
+}
+
+.Toastify__toast--success {
+  .toast-icon {
+    color: $color-green;
+  }
+}
+
+.Toastify__toast--warning {
+  .toast-icon {
+    color: $color-orange;
+  }
+}
+
+.Toastify__toast--error {
+  .toast-icon {
+    color: $color-red;
+  }
+}
+
+// Toast progress bar
+.Toastify__progress-bar {
+  height: 3px;
+  
+  &--info {
+    background: linear-gradient(90deg, $color-blue, lighten($color-blue, 20%));
+  }
+  
+  &--success {
+    background: linear-gradient(90deg, $color-green, lighten($color-green, 20%));
+  }
+  
+  &--warning {
+    background: linear-gradient(90deg, $color-orange, lighten($color-orange, 20%));
+  }
+  
+  &--error {
+    background: linear-gradient(90deg, $color-red, lighten($color-red, 20%));
+  }
+}
+
+//onlinestatus
+.online-status {
+  @media (max-width: 768px) {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid $color-gray-200;
+  }
+  
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+    color: $color-gray-800;
+    font-family: 'Lexend Tera', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+    }
+    
+    .nav-icon {
+      color: $color-green;
+      animation: pulse 2s infinite;
+    }
+    
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-left: 0.5rem;
+      
+      &.online {
+        background-color: $color-green;
+        box-shadow: 0 0 0 2px rgba($color-green, 0.2);
+        animation: pulse 2s infinite;
+      }
+      
+      &.offline {
+        background-color: $color-gray-400;
+      }
+    }
+  }
+}

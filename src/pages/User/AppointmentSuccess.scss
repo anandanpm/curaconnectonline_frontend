@@ -1,0 +1,122 @@
+.appointment-success-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f5f7ff 100%);
+
+  .success-card {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .success-content {
+    padding: 2.5rem 2rem;
+  }
+
+  .success-icon-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border-radius: 50%;
+      background: rgba(76, 175, 80, 0.1);
+      animation: pulse 2s infinite;
+    }
+  }
+
+  .success-icon {
+    font-size: 64px !important;
+    color: #4caf50;
+    animation: bounce 1s ease-in-out;
+  }
+
+  .success-title {
+    font-weight: 700 !important;
+    background: linear-gradient(135deg, #1976d2, #1565c0);
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem !important;
+  }
+
+  .success-message {
+    font-size: 1.1rem !important;
+    color: #546e7a;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .info-box {
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    width: 100%;
+    text-align: center;
+    color: #1976d2;
+  }
+
+  .action-button {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1rem !important;
+    padding: 0.75rem 2rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+    background: linear-gradient(135deg, #1976d2, #1565c0) !important;
+    transition: transform 0.2s ease !important;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .helper-text {
+    color: #78909c;
+    margin-top: 1rem !important;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: scale(0.95);
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

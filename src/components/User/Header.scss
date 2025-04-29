@@ -1,0 +1,711 @@
+$header-height: 70px;
+$primary-color: #4caf50;
+$text-color: #333;
+$transition: all 0.3s ease;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: $header-height;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    z-index: 101;
+
+    img {
+      height: 40px;
+      margin-right: 0.5rem;
+    }
+  }
+
+  &__brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    .cura {
+      color: $text-color;
+    }
+
+    .connect {
+      color: $primary-color;
+    }
+  }
+
+  &__right-section {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+      position: fixed;
+      top: $header-height;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 2rem;
+      transform: translateX(100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: $transition;
+      z-index: 100;
+      padding: 2rem 0;
+      overflow-y: auto;
+
+      &--active {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &-link {
+      text-decoration: none;
+      color: $text-color;
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: $transition;
+
+      @media (max-width: 768px) {
+        font-size: 1.2rem;
+        padding: 1rem 0;
+        width: 80%;
+        text-align: center;
+      }
+
+      &:hover,
+      &.active {
+        color: $primary-color;
+      }
+
+      &.active::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: $primary-color;
+        left: 0;
+        bottom: -4px;
+
+        @media (max-width: 768px) {
+          bottom: 0;
+        }
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1rem;
+      width: 80%;
+    }
+  }
+
+  &__signup,
+  &__login {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: $transition;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      text-align: center;
+      padding: 0.75rem 1rem;
+    }
+  }
+
+  &__signup {
+    background-color: $primary-color;
+    color: #fff;
+
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+  }
+
+  &__login {
+    border: 1px solid $primary-color;
+    color: $primary-color;
+
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+
+  &__user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__user-name {
+    display: none;
+
+    @media (min-width: 769px) {
+      display: block;
+    }
+  }
+
+  &__mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $text-color;
+    z-index: 101;
+    transition: $transition;
+    padding: 0.5rem;
+
+    &:hover {
+      color: $primary-color;
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__mobile-overlay {
+    display: none;
+
+    &--active {
+      display: block;
+      position: fixed;
+      top: $header-height;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+  }
+}
+
+// Styles for toast notification button
+.toast-btn {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: $transition;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+ }
+
+ .curaconnect-cancel-btn {
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
+  border: 1px solid #e0e0e0 !important;
+  color: #d33 !important;
+  background: #f8f9fa !important;
+  transition: all 0.2s ease !important;
+ }
+
+ 
+
+// $header-height: 70px;
+// $primary-color: #4caf50;
+// $text-color: #333;
+// $transition: all 0.3s ease;
+
+// .header {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 0 2rem;
+//   background: #fff;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+//   position: sticky;
+//   top: 0;
+//   z-index: 100;
+//   height: $header-height;
+
+//   &__container {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     width: 100%;
+//     position: relative;
+//   }
+
+//   &__logo {
+//     display: flex;
+//     align-items: center;
+//     text-decoration: none;
+//     z-index: 101;
+
+//     img {
+//       height: 40px;
+//       margin-right: 0.5rem;
+//     }
+//   }
+
+//   &__brand {
+//     font-size: 1.5rem;
+//     font-weight: bold;
+
+//     .cura {
+//       color: $text-color;
+//     }
+
+//     .connect {
+//       color: $primary-color;
+//     }
+//   }
+
+//   &__right-section {
+//     display: flex;
+//     align-items: center;
+//     gap: 2rem;
+
+//     @media (max-width: 768px) {
+//       position: fixed;
+//       top: $header-height;
+//       left: 0;
+//       right: 0;
+//       bottom: 0;
+//       background: #fff;
+//       flex-direction: column;
+//       justify-content: flex-start;
+//       align-items: center;
+//       gap: 2rem;
+//       transform: translateX(100%);
+//       opacity: 0;
+//       visibility: hidden;
+//       transition: $transition;
+//       z-index: 100;
+//       padding: 2rem 0;
+//       overflow-y: auto;
+
+//       &--active {
+//         transform: translateX(0);
+//         opacity: 1;
+//         visibility: visible;
+//       }
+//     }
+//   }
+
+//   &__nav {
+//     display: flex;
+//     align-items: center;
+//     gap: 2rem;
+
+//     @media (max-width: 768px) {
+//       flex-direction: column;
+//       width: 100%;
+//       align-items: center;
+//       gap: 1rem;
+//     }
+
+//     &-link {
+//       text-decoration: none;
+//       color: $text-color;
+//       font-weight: 500;
+//       position: relative;
+//       padding: 0.5rem 0;
+//       transition: $transition;
+
+//       @media (max-width: 768px) {
+//         font-size: 1.2rem;
+//         padding: 1rem 0;
+//         width: 80%;
+//         text-align: center;
+//       }
+
+//       &:hover,
+//       &.active {
+//         color: $primary-color;
+//       }
+
+//       &.active::after {
+//         content: '';
+//         position: absolute;
+//         width: 100%;
+//         height: 2px;
+//         background: $primary-color;
+//         left: 0;
+//         bottom: -4px;
+
+//         @media (max-width: 768px) {
+//           bottom: 0;
+//         }
+//       }
+//     }
+//   }
+
+//   &__actions {
+//     display: flex;
+//     align-items: center;
+//     gap: 1rem;
+
+//     @media (max-width: 768px) {
+//       flex-direction: column;
+//       gap: 1rem;
+//       width: 80%;
+//     }
+//   }
+
+//   &__signup,
+//   &__login {
+//     text-decoration: none;
+//     padding: 0.5rem 1rem;
+//     border-radius: 4px;
+//     font-weight: 500;
+//     transition: $transition;
+
+//     @media (max-width: 768px) {
+//       width: 100%;
+//       text-align: center;
+//       padding: 0.75rem 1rem;
+//     }
+//   }
+
+//   &__signup {
+//     background-color: $primary-color;
+//     color: #fff;
+
+//     &:hover {
+//       background-color: darken($primary-color, 5%);
+//     }
+//   }
+
+//   &__login {
+//     border: 1px solid $primary-color;
+//     color: $primary-color;
+
+//     &:hover {
+//       background-color: rgba($primary-color, 0.1);
+//     }
+//   }
+
+//   &__user-info {
+//     display: flex;
+//     align-items: center;
+//     gap: 0.5rem;
+//   }
+
+//   &__user-name {
+//     display: none;
+
+//     @media (min-width: 769px) {
+//       display: block;
+//     }
+//   }
+
+//   &__mobile-toggle {
+//     display: none;
+//     background: none;
+//     border: none;
+//     cursor: pointer;
+//     color: $text-color;
+//     z-index: 101;
+//     transition: $transition;
+//     padding: 0.5rem;
+
+//     &:hover {
+//       color: $primary-color;
+//     }
+
+//     @media (max-width: 768px) {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//     }
+//   }
+
+//   &__mobile-overlay {
+//     display: none;
+
+//     &--active {
+//       display: block;
+//       position: fixed;
+//       top: $header-height;
+//       left: 0;
+//       right: 0;
+//       bottom: 0;
+//       background-color: rgba(0, 0, 0, 0.5);
+//       z-index: 99;
+//     }
+//   }
+// }
+
+// // Toast Container - positioned to overlay content instead of pushing it down
+// .toast-container-custom {
+//   position: fixed !important;
+//   z-index: 9999 !important;
+//   // Ensure it's above everything else
+//   top: $header-height + 10px !important; // Position it just below the header
+//   right: 16px !important;
+//   width: 320px !important;
+//   max-width: calc(100vw - 32px) !important;
+  
+//   @media (max-width: 480px) {
+//     right: 8px !important;
+//     width: calc(100% - 16px) !important;
+//   }
+// }
+
+// // Enhanced Toast notification styles
+// .toast-notification {
+//   // Container styles
+//   width: 100%;
+//   overflow: hidden;
+//   border-radius: 8px;
+//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+//   // Toast header with accent color
+//   .toast-header {
+//     background-color: $primary-color;
+//     color: white;
+//     padding: 0.75rem 1rem;
+//     font-weight: 600;
+//     font-size: 1rem;
+//     display: flex;
+//     align-items: center;
+//     gap: 0.5rem;
+//   }
+
+//   // Toast content styles
+//   .toast-content {
+//     padding: 1rem;
+//     background-color: white;
+//     color: $text-color;
+//   }
+
+//   // Toast message text
+//   .toast-message {
+//     margin-bottom: 0.75rem;
+//     font-size: 0.95rem;
+//     line-height: 1.4;
+//   }
+// }
+
+// // Improved toast button styles
+// .toast-btn {
+//   background-color: $primary-color;
+//   color: white;
+//   border: none;
+//   padding: 0.6rem 1rem;
+//   border-radius: 4px;
+//   width: 100%;
+//   cursor: pointer;
+//   font-weight: 500;
+//   transition: $transition;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 0.5rem;
+
+//   &:hover {
+//     background-color: darken($primary-color, 8%);
+//     transform: translateY(-1px);
+//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   }
+
+//   &:active {
+//     transform: translateY(0);
+//   }
+// }
+
+// // React-Toastify overrides - ensure they float over content
+// .Toastify__toast-container {
+//   position: fixed;
+//   z-index: 9999;
+//   pointer-events: auto;
+  
+//   @media (max-width: 480px) {
+//     padding: 0 8px;
+//   }
+// }
+
+// .Toastify__toast {
+//   padding: 0 !important;
+//   margin-bottom: 1rem;
+//   overflow: hidden;
+//   border-radius: 8px;
+//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+//   position: relative;
+//   min-height: 64px;
+// }
+
+// .Toastify__toast-body {
+//   padding: 0 !important;
+//   margin: 0 !important;
+// }
+
+// .Toastify__close-button {
+//   position: absolute;
+//   top: 0.5rem;
+//   right: 0.5rem;
+//   color: rgba(255, 255, 255, 0.7);
+//   opacity: 1;
+
+//   &:hover {
+//     color: white;
+//   }
+// }
+
+// .Toastify__progress-bar {
+//   height: 3px;
+//   background: rgba(255, 255, 255, 0.7);
+// }
+
+// // SweetAlert2 custom styling for call notifications
+// .curaconnect-call-popup {
+//   padding: 1.5rem;
+//   border-radius: 12px;
+//   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+// }
+
+// .curaconnect-call-title {
+//   font-size: 1.5rem;
+//   color: $text-color;
+//   font-weight: 600;
+// }
+
+// .curaconnect-confirm-btn {
+//   padding: 0.75rem 1.5rem !important;
+//   font-weight: 500 !important;
+//   border-radius: 6px !important;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+//   transition: all 0.2s ease !important;
+  
+//   &:hover {
+//     transform: translateY(-2px) !important;
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+//   }
+// }
+
+// .curaconnect-cancel-btn {
+//   padding: 0.75rem 1.5rem !important;
+//   font-weight: 500 !important;
+//   border-radius: 6px !important;
+//   border: 1px solid #e0e0e0 !important;
+//   color: #d33 !important;
+//   background: #f8f9fa !important;
+//   transition: all 0.2s ease !important;
+  
+//   &:hover {
+//     background: #f2f2f2 !important;
+//     transform: translateY(-2px) !important;
+//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+//   }
+// }
+
+// // Customize the SweetAlert timer
+// .swal2-timer-progress-bar {
+//   background: rgba($primary-color, 0.5) !important;
+//   height: 0.25rem !important;
+// }
+
+// // Add animation for notifications
+// @keyframes slideInRight {
+//   from {
+//     transform: translateX(100%);
+//     opacity: 0;
+//   }
+//   to {
+//     transform: translateX(0);
+//     opacity: 1;
+//   }
+// }
+
+// @keyframes pulse {
+//   0% {
+//     box-shadow: 0 0 0 0 rgba($primary-color, 0.4);
+//   }
+//   70% {
+//     box-shadow: 0 0 0 10px rgba($primary-color, 0);
+//   }
+//   100% {
+//     box-shadow: 0 0 0 0 rgba($primary-color, 0);
+//   }
+// }
+
+// // Apply animations to toast notifications
+// .Toastify__toast--info {
+//   animation: slideInRight 0.3s ease forwards;
+  
+//   .toast-header {
+//     background-color: $primary-color;
+//   }
+// }
+
+// .Toastify__toast--success {
+//   animation: slideInRight 0.3s ease forwards;
+  
+//   .toast-header {
+//     background-color: #4caf50;
+//   }
+// }
+
+// .Toastify__toast--warning {
+//   animation: slideInRight 0.3s ease forwards;
+  
+//   .toast-header {
+//     background-color: #ff9800;
+//   }
+// }
+
+// .Toastify__toast--error {
+//   animation: slideInRight 0.3s ease forwards;
+  
+//   .toast-header {
+//     background-color: #f44336;
+//   }
+// }
+
+// // Animation for call notification icon
+// .swal2-popup .swal2-icon {
+//   animation: pulse 2s infinite;
+// }

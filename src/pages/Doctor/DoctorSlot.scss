@@ -1,0 +1,981 @@
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+// * {
+//   font-family: 'Poppins', sans-serif;
+// }
+
+// $primary-color: #007e85;
+// $secondary-color: #4db6ac;
+// $background-color: #f0f7f8;
+// $text-color: #333;
+// $card-background: #fff;
+// $card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+// $border-radius: 12px;
+
+
+// .appointment-page {
+//   padding: 40px 0;
+//   background-color: $background-color;
+//   min-height: 100vh;
+
+//   .page-title {
+//     margin-bottom: 32px;
+//     color: $primary-color;
+//     font-weight: 600;
+//     text-align: center;
+//   }
+
+//   .content-wrapper {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 32px;
+//   }
+
+//   .appointment-card {
+//     background-color: $card-background;
+//     border-radius: $border-radius;
+//     box-shadow: $card-shadow;
+//     overflow: hidden;
+//     transition: box-shadow 0.3s ease;
+
+//     &:hover {
+//       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+//     }
+
+//     .card-header {
+//       background-color: $primary-color;
+//       padding: 16px;
+
+//       .MuiTypography-root {
+//         color: #ffffff;
+//         font-weight: 600;
+//       }
+//     }
+
+//     .card-content {
+//       padding: 24px;
+//     }
+//   }
+
+//   .form-container {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 20px;
+
+//     .date-picker,
+//     .time-picker {
+//       width: 100%;
+//     }
+
+//     .add-slot-button {
+//       margin-top: 8px;
+//       background-color: $secondary-color;
+//       transition: background-color 0.3s ease;
+
+//       &:hover {
+//         background-color: darken($secondary-color, 10%);
+//       }
+
+//       &:disabled {
+//         background-color: #bdbdbd;
+//       }
+//     }
+//   }
+
+//   .slots-container {
+//     display: grid;
+//     grid-template-columns: 1fr 1fr;
+//     gap: 24px;
+
+//     @media (max-width: 768px) {
+//       grid-template-columns: 1fr;
+//     }
+//   }
+
+//   .slots-list-card {
+//     .slots-list {
+//       padding: 0;
+//       max-height: 400px;
+//       overflow-y: auto;
+//     }
+
+//     .slot-item {
+//       border-bottom: 1px solid #e0e0e0;
+//       padding: 16px;
+//       transition: background-color 0.3s ease;
+
+//       &:last-child {
+//         border-bottom: none;
+//       }
+
+//       &:hover {
+//         background-color: #f5f5f5;
+//       }
+//     }
+
+//     .slot-text {
+//       margin-right: 16px;
+//     }
+
+//     .delete-button {
+//       color: #f44336;
+
+//       &:hover {
+//         color: darken(#f44336, 10%);
+//       }
+//     }
+
+//     .no-slots-message {
+//       padding: 20px;
+//       color: #757575;
+//       font-style: italic;
+//     }
+//   }
+
+//   .backend-response-card {
+//     .response-message {
+//       margin-bottom: 16px;
+//       font-weight: bold;
+//       color: $primary-color;
+//     }
+
+//     .response-details {
+//       background-color: #f5f5f5;
+//       border-radius: $border-radius;
+//       padding: 16px;
+
+//       .MuiListItem-root {
+//         padding: 8px 0;
+//       }
+
+//       .MuiListItemText-primary {
+//         font-weight: 600;
+//         color: $text-color;
+//       }
+
+//       .MuiListItemText-secondary {
+//         color: #757575;
+//       }
+//     }
+//   }
+
+//   .save-slots-button {
+//     margin-top: 20px;
+//     background-color: $primary-color;
+//     transition: background-color 0.3s ease;
+
+//     &:hover {
+//       background-color: darken($primary-color, 10%);
+//     }
+
+//     &:disabled {
+//       background-color: #bdbdbd;
+//     }
+//   }
+// }
+
+// // Add responsive styles
+// @media (max-width: 600px) {
+//   .appointment-page {
+//     padding: 24px;
+
+//     .appointment-card {
+
+//       .card-header,
+//       .card-content {
+//         padding: 16px;
+//       }
+//     }
+
+//     .form-container {
+//       gap: 16px;
+//     }
+
+//     .slots-list-card {
+//       .slot-item {
+//         padding: 12px;
+//       }
+//     }
+//   }
+// }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+// Colors
+$primary-color: #009688; // Teal
+$primary-light: #00a3a3;
+$primary-dark: #006666;
+$secondary-color: #4ecdc4; // Light teal
+$secondary-light: #7edcd6;
+$secondary-dark: #2ca69f;
+$background-color: #ffffff; // White background
+$text-color: #334155; // Slate gray
+$card-background: #ffffff;
+$card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+$border-radius: 8px;
+$error-color: #ef4444;
+$success-color: #10b981;
+$available-color: #10b981; // Green
+$booked-color: #f59e0b; // Amber
+$pending-color: #6366f1; // Indigo
+
+// Transitions
+$transition-speed: 0.3s;
+
+// Mixins
+@mixin card-hover {
+  transition: transform $transition-speed ease, box-shadow $transition-speed ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@mixin button-hover {
+  transition: all $transition-speed ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  @content;
+}
+
+.appointment-page {
+  padding: 40px 20px;
+  background-color: $background-color;
+  min-height: 100vh;
+  color: $text-color;
+  position: relative;
+
+  .page-title-container {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 140px;
+      height: 4px;
+      background: $primary-color;
+      transform: translateX(-50%);
+      border-radius: 4px;
+    }
+  }
+
+  .page-title {
+    color: $text-color;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 2rem;
+
+    .title-icon {
+      font-size: 32px;
+      color: $primary-color;
+    }
+  }
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .slots-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .section-title {
+      font-weight: 600;
+      color: $text-color;
+      position: relative;
+      padding-left: 16px;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 24px;
+        background: $primary-color;
+        border-radius: 4px;
+      }
+    }
+
+    .create-slot-button {
+      background-color: $primary-color;
+      border-radius: 8px;
+      padding: 10px 24px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      color: white;
+      
+      &:hover {
+        background-color: darken($primary-color, 5%);
+      }
+    }
+  }
+
+  .slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    width: 100%;
+  }
+
+  .appointment-card {
+    background-color: $card-background;
+    border-radius: $border-radius;
+    box-shadow: $card-shadow;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    height: 500px; /* Fixed height */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .card-header {
+      background-color: $primary-color;
+      padding: 16px 20px;
+      color: white;
+      font-weight: 600;
+      text-align: center;
+      width: 100%;
+      
+      .MuiCardHeader-title, .MuiTypography-root {
+        color: white;
+        font-weight: 600;
+        font-size: 1.25rem;
+      }
+    }
+
+    .card-content {
+      padding: 20px;
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 10px 0;
+
+    .form-field-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      
+      .form-field-icon {
+        color: $primary-color;
+        font-size: 24px;
+      }
+    }
+
+    .date-picker,
+    .time-picker,
+    .recurrence-select {
+      width: 100%;
+
+      .MuiInputBase-root {
+        border-radius: 8px;
+        font-size: 1.05rem;
+      }
+
+      .MuiOutlinedInput-notchedOutline {
+        border-color: rgba($primary-color, 0.3);
+        border-width: 2px;
+      }
+
+      &:hover .MuiOutlinedInput-notchedOutline {
+        border-color: rgba($primary-color, 0.6);
+      }
+      
+      .MuiInputLabel-root {
+        font-size: 1.05rem;
+        font-weight: 500;
+        color: $text-color;
+      }
+    }
+
+    .time-caption {
+      margin-top: -8px;
+      color: $primary-color;
+      font-style: italic;
+      font-size: 0.9rem;
+      margin-left: 40px;
+    }
+  }
+
+  .slots-list-card {
+    .slots-list {
+      padding: 0;
+      max-height: 450px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: $primary-light $background-color;
+      flex: 1;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: $background-color;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $primary-light;
+        border-radius: 10px;
+      }
+    }
+
+    .slot-item {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      padding: 20px;
+      transition: all $transition-speed ease;
+      
+      border-radius: 8px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: rgba($primary-light, 0.05);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      }
+
+      &.booked-slot {
+        background-color: rgba($booked-color, 0.05);
+        border-left: 4px solid $booked-color;
+      }
+
+      &.available-slot {
+        background-color: rgba($available-color, 0.05);
+        border-left: 4px solid $available-color;
+      }
+
+      &.new-slot {
+        background-color: rgba($pending-color, 0.05);
+        border-left: 4px solid $pending-color;
+      }
+
+      .slot-date-time {
+        font-weight: 600;
+        color: $text-color;
+        font-size: 18px;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .slot-details {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      .status-badge {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        &.available {
+          background-color: rgba($available-color, 0.1);
+          color: $available-color;
+        }
+
+        &.booked {
+          background-color: rgba($booked-color, 0.1);
+          color: $booked-color;
+        }
+
+        &.pending {
+          background-color: rgba($pending-color, 0.1);
+          color: $pending-color;
+        }
+      }
+    }
+
+    .slot-text {
+      margin-right: 16px;
+      width: 100%;
+    }
+
+    .delete-button {
+      color: $error-color;
+      transition: all $transition-speed ease;
+      background-color: rgba($error-color, 0.08);
+      padding: 10px;
+      border-radius: 8px;
+
+      &:hover {
+        color: darken($error-color, 10%);
+        background-color: rgba($error-color, 0.15);
+        transform: translateY(-2px);
+      }
+    }
+
+    .no-slots-message {
+      padding: 30px 24px;
+      color: #64748b;
+      font-style: italic;
+      text-align: center;
+      background-color: rgba($primary-color, 0.03);
+      border-radius: 12px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
+    }
+  }
+
+  .save-slots-button {
+    background: linear-gradient(90deg, #007E85 0%, #00A9A5 100%);
+    color:white ;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'Lexend Tera', sans-serif;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+
+    &:disabled {
+      background: #cbd5e1;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 300px;
+
+    .loading-text {
+      color: $primary-color;
+      margin-top: 16px;
+      font-weight: 500;
+    }
+  }
+
+  .error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 36px;
+    background-color: rgba($error-color, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    min-height: 300px;
+
+    .retry-button {
+      margin-top: 20px;
+      @include button-hover;
+      background-color: $primary-color;
+      
+      &:hover {
+        background-color: darken($primary-color, 5%);
+      }
+    }
+  }
+  
+  .mobile-add-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: $primary-color;
+    z-index: 100;
+    display: none;
+    
+    @media (max-width: 768px) {
+      display: flex;
+    }
+    
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+  }
+}
+
+// Create Slot Modal
+.create-slot-modal {
+  .create-modal-header {
+    background-color: $primary-color;
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .MuiTypography-root {
+      font-weight: 600;
+    }
+    
+    .close-button {
+      color: white;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+  
+  .create-modal-content {
+    padding: 30px 24px;
+  }
+  
+  .create-modal-actions {
+    padding: 16px 24px;
+    background-color: #f8fafc;
+    
+    .add-slot-button {
+      background-color: $primary-color;
+      border-radius: 10px;
+      padding: 10px 24px;
+      font-weight: 600;
+      color: white;
+      
+      &:hover {
+        background-color: darken($primary-color, 5%);
+      }
+      
+      &:disabled {
+        background: #cbd5e1;
+      }
+    }
+    
+    .cancel-button {
+      color: #64748b;
+      font-weight: 500;
+      margin-right: 10px;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+}
+
+// Dialog styles
+.dialog-container {
+  .MuiPaper-root {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .MuiDialogTitle-root {
+    background-color: $primary-color;
+    color: white;
+    padding: 18px 26px;
+    font-weight: 600;
+  }
+
+  .MuiDialogContent-root {
+    padding: 26px;
+  }
+
+  .MuiDialogActions-root {
+    padding: 18px 26px;
+    background-color: #f8fafc;
+  }
+
+  .cancel-button {
+    color: #64748b;
+    font-weight: 500;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .confirm-button {
+    background-color: $primary-color;
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    @include button-hover;
+
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+  }
+
+  .delete-confirm-button {
+    background-color: $error-color;
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    @include button-hover;
+
+    &:hover {
+      background-color: darken($error-color, 5%);
+    }
+  }
+}
+
+// Snackbar styles
+.MuiSnackbar-root {
+  .MuiAlert-root {
+    border-radius: 10px;
+    font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+    &.MuiAlert-filledSuccess {
+      background-color: $success-color;
+    }
+
+    &.MuiAlert-filledError {
+      background-color: $error-color;
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .appointment-page {
+    padding: 30px 20px;
+
+    .page-title {
+      font-size: 28px;
+      margin-bottom: 30px;
+
+      .title-icon {
+        font-size: 34px;
+      }
+      
+      &::after {
+        width: 100px;
+        height: 3px;
+      }
+    }
+    
+    .slots-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      
+      .create-slot-button {
+        display: none;
+      }
+    }
+
+    .slots-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .appointment-card {
+      height: 450px;
+
+      .card-header {
+        padding: 16px 22px;
+        
+        .MuiTypography-root {
+          font-size: 1.2rem;
+        }
+      }
+
+      .card-content {
+        padding: 24px;
+      }
+    }
+
+    .form-container {
+      gap: 20px;
+      
+      .form-field-with-icon {
+        .form-field-icon {
+          font-size: 20px;
+        }
+      }
+      
+      .time-caption {
+        margin-left: 36px;
+      }
+    }
+
+    .slots-container {
+      gap: 24px;
+    }
+
+    .slots-list-card {
+      .slot-item {
+        padding: 16px;
+      }
+
+      .no-slots-message {
+        padding: 24px 20px;
+      }
+    }
+
+    .save-slots-button {
+      padding: 16px 0;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .appointment-page {
+    padding: 20px 16px;
+
+    .page-title {
+      font-size: 24px;
+      gap: 12px;
+
+      .title-icon {
+        font-size: 28px;
+      }
+
+      &::after {
+        width: 80px;
+        height: 3px;
+      }
+    }
+
+    .appointment-card {
+      height: 400px;
+
+      .card-header {
+        padding: 14px 18px;
+
+        .MuiTypography-root {
+          font-size: 1.1rem;
+        }
+      }
+
+      .card-content {
+        padding: 20px;
+      }
+    }
+
+    .form-container {
+      gap: 16px;
+      
+      .form-field-with-icon {
+        gap: 12px;
+        
+        .form-field-icon {
+          font-size: 18px;
+        }
+      }
+
+      .time-caption {
+        margin-left: 30px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .slots-list-card {
+      .slots-list {
+        max-height: 400px;
+      }
+
+      .slot-item {
+        padding: 16px;
+        margin-bottom: 12px;
+
+        .slot-date-time {
+          font-size: 16px;
+        }
+
+        .slot-details {
+          font-size: 13px;
+        }
+
+        .status-badge {
+          font-size: 11px;
+          padding: 4px 8px;
+        }
+      }
+    }
+
+    .save-slots-button {
+      padding: 14px 0;
+      font-size: 1rem;
+    }
+    
+    .mobile-add-button {
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+
+  .create-slot-modal {
+    .create-modal-header {
+      padding: 16px 20px;
+    }
+    
+    .create-modal-content {
+      padding: 20px;
+    }
+    
+    .create-modal-actions {
+      padding: 14px 20px;
+    }
+  }
+
+  .dialog-container {
+    .MuiDialogTitle-root {
+      padding: 14px 20px;
+      font-size: 1.1rem;
+    }
+
+    .MuiDialogContent-root {
+      padding: 20px;
+    }
+
+    .MuiDialogActions-root {
+      padding: 14px 20px;
+    }
+  }
+}

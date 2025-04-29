@@ -1,0 +1,114 @@
+.admin-login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+
+  .admin-login-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+
+    .logo {
+      margin-bottom: 1rem;
+
+      img {
+        height: 40px;
+        width: auto;
+      }
+    }
+
+    .lock-illustration {
+      margin: 2rem 0;
+
+      img {
+        width: 120px;
+        height: auto;
+      }
+    }
+
+    h1 {
+      color: #333;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #009688;
+        }
+
+        &.error {
+          border-color: #dc3545;
+          background-color: #fff8f8;
+        }
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+
+      .error-message {
+        color: #dc3545;
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+        text-align: left;
+      }
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #009688;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: darken(#009688, 5%);
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+
+    .error-message {
+      color: #dc3545;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-login-container {
+    padding: 1rem;
+
+    .admin-login-card {
+      padding: 1.5rem;
+    }
+  }
+}

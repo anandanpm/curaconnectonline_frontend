@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Tera&display=swap');
+
+.footer {
+  background-color: #007E85;
+  color: white;
+  font-family: 'Lexend Tera', sans-serif;
+  padding: 1rem 1rem 1rem;
+
+  &__container {
+    max-width: 12000px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4rem;
+  }
+
+  &__brand {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.1rem;
+    }
+  }
+
+  &__logo {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 200;
+  }
+
+  &__copyright {
+    font-size: 0.75rem;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+
+  &__content {
+    flex: 2;
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+
+  &__section {
+    flex: 1;
+
+    &-title {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.75rem;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+  }
+
+  &__link {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+
+    &__container {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    &__content {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    &__brand {
+      align-items: center;
+      text-align: center;
+    }
+
+    &__section {
+      text-align: center;
+
+      &-title {
+        white-space: normal;
+      }
+    }
+
+    &__list li {
+      white-space: normal;
+    }
+  }
+}

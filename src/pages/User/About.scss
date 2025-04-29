@@ -1,0 +1,961 @@
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+// $primary-color: #4A90E2;
+// $secondary-color: #F5A623;
+// $text-color: #333333;
+// $background-color: #F8F9FA;
+
+// @keyframes fadeInUp {
+//   from {
+//     opacity: 0;
+//     transform: translateY(20px);
+//   }
+
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
+
+// @keyframes scaleIn {
+//   from {
+//     opacity: 0;
+//     transform: scale(0.9);
+//   }
+
+//   to {
+//     opacity: 1;
+//     transform: scale(1);
+//   }
+// }
+
+// @mixin section-padding {
+//   padding: 4rem 2rem;
+
+//   @media (min-width: 768px) {
+//     padding: 6rem 4rem;
+//   }
+// }
+
+// body {
+//   font-family: 'Poppins', sans-serif;
+//   color: $text-color;
+//   background-color: $background-color;
+//   line-height: 1.6;
+// }
+
+// .about {
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   overflow: hidden;
+// }
+
+// .hero {
+//   @include section-padding;
+//   background: linear-gradient(135deg, #f6f8fa 0%, #e9f0f7 100%);
+//   border-radius: 24px;
+//   margin-bottom: 7rem;
+
+//   .hero-content {
+//     display: flex;
+//     align-items: center;
+//     gap: 4rem;
+//     margin-bottom: 4rem;
+
+//     @media (max-width: 768px) {
+//       flex-direction: column;
+//       text-align: center;
+//       gap: 2rem;
+//     }
+//   }
+
+//   .hero-text {
+//     flex: 1;
+//     opacity: 0;
+//     animation: fadeInUp 0.8s ease-out forwards;
+
+//     h1 {
+//       font-size: 3.5rem;
+//       line-height: 1.2;
+//       font-weight: 700;
+//       margin-bottom: 1.5rem;
+//       color: $text-color;
+
+//       .highlight {
+//         color: $primary-color;
+//       }
+
+//       @media (max-width: 768px) {
+//         font-size: 2.5rem;
+//       }
+//     }
+
+//     p {
+//       font-size: 1.25rem;
+//       color: lighten($text-color, 20%);
+//       margin-bottom: 2rem;
+//       line-height: 1.6;
+//     }
+//   }
+
+//   .hero-image {
+//     flex: 1;
+//     opacity: 0;
+//     animation: scaleIn 0.8s ease-out 0.3s forwards;
+
+//     img {
+//       width: 100%;
+//       height: auto;
+//       border-radius: 20px;
+//       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+//     }
+//   }
+// }
+
+// .started-button {
+//   background-color: $primary-color;
+//   color: white;
+//   padding: 1rem 2rem;
+//   border-radius: 50px;
+//   font-weight: 600;
+//   font-size: 1.1rem;
+//   border: none;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+//   &:hover {
+//     background-color: darken($primary-color, 10%);
+//     transform: translateY(-2px);
+//   }
+// }
+
+// .features {
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   gap: 2rem;
+//   margin-top: 4rem;
+
+//   @media (max-width: 768px) {
+//     grid-template-columns: 1fr;
+//   }
+// }
+
+// .feature {
+//   text-align: center;
+//   padding: 2rem;
+//   border-radius: 20px;
+//   background: white;
+//   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+//   opacity: 0;
+//   transform: translateY(20px);
+//   transition: all 0.5s ease-out;
+
+//   &.visible {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+
+//   .icon-wrapper {
+//     background-color: $primary-color;
+//     width: 4rem;
+//     height: 4rem;
+//     border-radius: 50%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin: 0 auto 1.5rem;
+//     transition: all 0.3s ease;
+
+//     &:hover {
+//       transform: scale(1.1);
+//     }
+
+//     .icon {
+//       color: white;
+//       width: 2rem;
+//       height: 2rem;
+//     }
+//   }
+
+//   h3 {
+//     color: $text-color;
+//     font-size: 1.5rem;
+//     margin-bottom: 1rem;
+//     font-weight: 600;
+//   }
+
+//   p {
+//     color: lighten($text-color, 20%);
+//     font-size: 1rem;
+//   }
+// }
+
+// .mission {
+//   @include section-padding;
+//   text-align: center;
+//   background-color: white;
+//   border-radius: 20px;
+//   margin-bottom: 4rem;
+//   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+//   h2 {
+//     font-size: 2.5rem;
+//     color: $text-color;
+//     margin-bottom: 1.5rem;
+//   }
+
+//   p {
+//     font-size: 1.1rem;
+//     color: lighten($text-color, 20%);
+//     max-width: 800px;
+//     margin: 0 auto 3rem;
+//   }
+
+//   .mission-values {
+//     display: flex;
+//     justify-content: space-around;
+//     flex-wrap: wrap;
+//     gap: 2rem;
+
+//     .value {
+//       flex: 1;
+//       min-width: 200px;
+
+//       .value-icon {
+//         color: $secondary-color;
+//         width: 3rem;
+//         height: 3rem;
+//         margin-bottom: 1rem;
+//       }
+
+//       h3 {
+//         font-size: 1.3rem;
+//         margin-bottom: 0.5rem;
+//       }
+
+//       p {
+//         font-size: 1rem;
+//       }
+//     }
+//   }
+// }
+
+// .booking {
+//   @include section-padding;
+//   background-color: $background-color;
+//   border-radius: 20px;
+//   margin-bottom: 4rem;
+
+//   .booking-content {
+//     display: flex;
+//     align-items: center;
+//     gap: 4rem;
+
+//     @media (max-width: 768px) {
+//       flex-direction: column;
+//       text-align: center;
+//     }
+//   }
+
+//   .booking-image {
+//     flex: 1;
+//     opacity: 0;
+//     animation: scaleIn 0.8s ease-out forwards;
+
+//     img {
+//       width: 100%;
+//       height: auto;
+//       border-radius: 20px;
+//       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+//     }
+//   }
+
+//   .booking-text {
+//     flex: 1;
+//     opacity: 0;
+//     transform: translateY(20px);
+//     transition: all 0.5s ease-out;
+
+//     &.visible {
+//       opacity: 1;
+//       transform: translateY(0);
+//     }
+
+//     h2 {
+//       font-size: 2.5rem;
+//       color: $text-color;
+//       margin-bottom: 1.5rem;
+//       line-height: 1.2;
+
+//       @media (max-width: 768px) {
+//         font-size: 2rem;
+//       }
+//     }
+
+//     p {
+//       color: lighten($text-color, 20%);
+//       font-size: 1.1rem;
+//       line-height: 1.6;
+//       margin-bottom: 2rem;
+//     }
+//   }
+// }
+
+// .booking-features {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+//   gap: 1.5rem;
+//   margin-top: 2rem;
+// }
+
+// .booking-feature {
+//   display: flex;
+//   align-items: center;
+//   gap: 1rem;
+//   padding: 1rem;
+//   background: white;
+//   border-radius: 10px;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+//   transition: transform 0.3s ease;
+
+//   &:hover {
+//     transform: translateY(-5px);
+//   }
+
+//   .feature-icon {
+//     color: $primary-color;
+//     width: 2rem;
+//     height: 2rem;
+//   }
+
+//   span {
+//     color: $text-color;
+//     font-weight: 500;
+//     font-size: 1.1rem;
+//   }
+// }
+
+// .testimonial {
+//   @include section-padding;
+//   text-align: center;
+//   background-color: $primary-color;
+//   color: white;
+//   border-radius: 20px;
+//   margin-bottom: 4rem;
+
+//   blockquote {
+//     font-size: 1.5rem;
+//     font-style: italic;
+//     margin-bottom: 1rem;
+//     line-height: 1.6;
+//   }
+
+//   cite {
+//     font-size: 1.1rem;
+//     font-weight: 600;
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .hero h1 {
+//     font-size: 2.5rem;
+//   }
+
+//   .feature,
+//   .booking-feature {
+//     padding: 1.5rem;
+//   }
+
+//   .mission h2,
+//   .booking-text h2 {
+//     font-size: 2rem;
+//   }
+
+//   .testimonial blockquote {
+//     font-size: 1.3rem;
+//   }
+// }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+$primary-color: #4A90E2;
+$secondary-color: #F5A623;
+$text-color: #333333;
+$background-color: #F8F9FA;
+$accent-color: #6C63FF;
+$light-blue: #E3F2FD;
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+@mixin section-padding {
+  padding: 4rem 2rem;
+
+  @media (min-width: 768px) {
+    padding: 6rem 4rem;
+  }
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: $text-color;
+  background-color: $background-color;
+  line-height: 1.6;
+}
+
+.about {
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+// Enhanced Hero Section
+.hero {
+  @include section-padding;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f6ff 100%);
+  border-radius: 24px;
+  margin-bottom: 7rem;
+  position: relative;
+  overflow: hidden;
+  
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    
+    .circles {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba($primary-color, 0.1) 0%, rgba($primary-color, 0.05) 100%);
+      animation: pulse 10s infinite ease-in-out;
+    }
+    
+    .circle-1 {
+      width: 300px;
+      height: 300px;
+      top: -150px;
+      right: -100px;
+      animation-delay: 0s;
+    }
+    
+    .circle-2 {
+      width: 500px;
+      height: 500px;
+      bottom: -250px;
+      right: 10%;
+      animation-delay: 2s;
+    }
+    
+    .circle-3 {
+      width: 200px;
+      height: 200px;
+      bottom: 10%;
+      left: -50px;
+      animation-delay: 4s;
+    }
+  }
+
+  .hero-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+      gap: 2rem;
+    }
+  }
+
+  .hero-text {
+    flex: 1;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    
+    .tag-badge {
+      display: inline-block;
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: $text-color;
+      letter-spacing: -0.5px;
+
+      .highlight {
+        color: $primary-color;
+        position: relative;
+        display: inline-block;
+        
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 8px;
+          left: 0;
+          width: 100%;
+          height: 8px;
+          background-color: rgba($primary-color, 0.2);
+          z-index: -1;
+          border-radius: 4px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        font-size: 2.5rem;
+      }
+    }
+
+    p {
+      font-size: 1.25rem;
+      color: lighten($text-color, 20%);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      
+      .highlight-text {
+        font-weight: 600;
+        color: $secondary-color;
+      }
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      
+      @media (max-width: 768px) {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  .hero-image {
+    flex: 1;
+    opacity: 0;
+    animation: scaleIn 0.8s ease-out 0.3s forwards;
+    position: relative;
+    
+    .image-container {
+      position: relative;
+      
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-5px);
+        }
+      }
+      
+      .floating-badge {
+        position: absolute;
+        background-color: white;
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        animation: float 6s ease-in-out infinite;
+        
+        svg {
+          color: $primary-color;
+        }
+        
+        span {
+          font-weight: 600;
+          font-size: 0.875rem;
+          color: $text-color;
+        }
+      }
+      
+      .patients-badge {
+        top: 10%;
+        right: -20px;
+        animation-delay: 0s;
+      }
+      
+      .practices-badge {
+        bottom: 15%;
+        left: -20px;
+        animation-delay: 2s;
+      }
+    }
+  }
+}
+
+.started-button {
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  &.primary-btn {
+    background-color: $primary-color;
+    color: white;
+    
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      transform: translateY(-2px);
+    }
+  }
+  
+  &.secondary-btn {
+    background-color: transparent;
+    border: 2px solid $primary-color;
+    color: $primary-color;
+    
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+  position: relative;
+  z-index: 3;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.feature {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-out;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .icon-wrapper {
+    background-color: $primary-color;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    
+    &::after {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border-radius: 50%;
+      background: rgba($primary-color, 0.2);
+      z-index: -1;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    .icon {
+      color: white;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  h3 {
+    color: $text-color;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  p {
+    color: lighten($text-color, 20%);
+    font-size: 1rem;
+  }
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Rest of your existing styles...
+.mission {
+  @include section-padding;
+  text-align: center;
+  background-color: white;
+  border-radius: 20px;
+  margin-bottom: 4rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    font-size: 2.5rem;
+    color: $text-color;
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: lighten($text-color, 20%);
+    max-width: 800px;
+    margin: 0 auto 3rem;
+  }
+
+  .mission-values {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    .value {
+      flex: 1;
+      min-width: 200px;
+
+      .value-icon {
+        color: $secondary-color;
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+.booking {
+  @include section-padding;
+  background-color: $background-color;
+  border-radius: 20px;
+  margin-bottom: 4rem;
+
+  .booking-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  .booking-image {
+    flex: 1;
+    opacity: 0;
+    animation: scaleIn 0.8s ease-out forwards;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .booking-text {
+    flex: 1;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-out;
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      color: $text-color;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+
+    p {
+      color: lighten($text-color, 20%);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.booking-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.booking-feature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .feature-icon {
+    color: $primary-color;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  span {
+    color: $text-color;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+}
+
+.testimonial {
+  @include section-padding;
+  text-align: center;
+  background-color: $primary-color;
+  color: white;
+  border-radius: 20px;
+  margin-bottom: 4rem;
+
+  blockquote {
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  cite {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .feature,
+  .booking-feature {
+    padding: 1.5rem;
+  }
+
+  .mission h2,
+  .booking-text h2 {
+    font-size: 2rem;
+  }
+
+  .testimonial blockquote {
+    font-size: 1.3rem;
+  }
+}
