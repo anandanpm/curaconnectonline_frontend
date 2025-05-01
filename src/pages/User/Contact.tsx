@@ -1,41 +1,4 @@
-// // ContactPage.tsx
-// import React from 'react';
-// import './Contact.scss';
-// import doctorImage from '../../assets/doctor treating.avif'; 
 
-// const ContactPage: React.FC = () => {
-//   return (
-//     <div className="contact-page">
-//       <div className="contact-container">
-//         <div className="image-section">
-//           <img 
-//             src={doctorImage}
-//             alt="Healthcare professional attending to a patient" 
-//             className="contact-image"
-//           />
-//         </div>
-//         <div className="info-section">
-//           <h2 className="contact-heading">CONTACT US</h2>
-          
-//           <div className="office-info">
-//             <h3 className="sub-heading">OUR OFFICE</h3>
-//             <p className="address">56704 Willow Station</p>
-//             <p className="address">Suite 300, Washington, USA</p>
-            
-//             <div className="contact-details">
-//               <p className="phone">Tel: (410) 555-0132</p>
-//               <p className="email">Email: getintouch@gmail.com</p>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ContactPage;
-
-// ContactPage.tsx
 import type React from "react"
 import "./Contact.scss"
 import doctorImage from "../../assets/doctor treating.avif"

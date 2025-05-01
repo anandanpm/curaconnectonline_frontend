@@ -11,7 +11,7 @@ import type { RootState } from "../../redux/store"
 import { useNavigate } from "react-router-dom"
 
 const stripePromise = loadStripe(
-  "pk_test_51Qll4sQYsYoxQv6c4onEzQTe1LgeSBRke8vF2cOfYMmojybtG08Sx3dAd1fObbDIXODeTlaVHXhtxPqudY9CsBg900c0fkb6SE"
+  import.meta.env.VITE_STRIPE_API_KEY
 )
 
 interface PaymentFormProps {
