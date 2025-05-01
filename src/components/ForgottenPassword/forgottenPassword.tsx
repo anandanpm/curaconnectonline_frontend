@@ -16,6 +16,7 @@ import {
   Link,
 } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
+import './forgottenPassword.scss'
 
 // Validation schemas
 const emailSchema = Yup.object().shape({
