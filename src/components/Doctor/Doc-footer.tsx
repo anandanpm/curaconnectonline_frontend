@@ -1,5 +1,5 @@
 import React from 'react';
-import './Doc-Footer.scss';
+import './Doc-footer.scss';
 
 
 interface FooterProps { }
