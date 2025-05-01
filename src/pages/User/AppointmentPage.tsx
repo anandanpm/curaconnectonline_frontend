@@ -28,9 +28,16 @@ const AppointmentPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
   const [showPayment, setShowPayment] = useState(false)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
-  const [appointmentCost, setAppointmentCost] = useState(50)
+  const [appointmentCost, setAppointmentCost] = useState(50) 
   const doctor = useSelector((state: RootState) => state.user.doctor.find((d) => d._id === id))
   const user = useSelector((state: RootState) => state.user)
+
+  useEffect(() => {
+    // Update appointment cost if doctor has consultation_fee
+    if (doctor && doctor.consultation_fee) {
+      setAppointmentCost(doctor.consultation_fee)
+    }
+  }, [doctor])
 
   const fetchSlots = useCallback(async () => {
     if (id) {
@@ -109,10 +116,15 @@ const AppointmentPage: React.FC = () => {
       <h1>Book Appointment</h1>
       {doctor && (
         <div className="doctor-info">
-          <img src={doctor.profile_pic || "/placeholder.svg"} alt={doctor.username} className="doctor-image" />
+          <img 
+            src={doctor.profile_pic || "/placeholder.svg"} 
+            alt={doctor.username} 
+            className="doctor-image" 
+          />
           <div className="doctor-name-container">
             <h2>{doctor.username}</h2>
             <p className="doctor-specialty">{doctor.department}</p>
+            <p className="consultation-fee"><strong>Consultation Fee:</strong> ${appointmentCost}</p>
           </div>
         </div>
       )}
@@ -134,7 +146,8 @@ const AppointmentPage: React.FC = () => {
 
       {filteredSlots.length === 0 ? (
         <div className="no-slots-message">
-          <p>There are no available slots.</p>
+          <p>There are no available slots for the selected date.</p>
+          {!selectedDate && availableDates.length > 0 && <p>Please select a date to view available slots.</p>}
         </div>
       ) : (
         <div className="slots-grid">
@@ -148,6 +161,7 @@ const AppointmentPage: React.FC = () => {
               <span className="slot-time">
                 {convertTo12HourFormat(slot.start_time)} - {convertTo12HourFormat(slot.end_time)}
               </span>
+              {slot.status === "booked" && <span className="slot-status">Booked</span>}
             </button>
           ))}
         </div>
@@ -158,11 +172,12 @@ const AppointmentPage: React.FC = () => {
           <div className="modal">
             <h3>Confirm Appointment</h3>
             <p>Do you want to book an appointment for:</p>
-            <p>Date: {formatDate(selectedSlot.day)}</p>
+            <p><strong>Doctor:</strong> {doctor?.username}</p>
+            <p><strong>Date:</strong> {formatDate(selectedSlot.day)}</p>
             <p>
-              Time: {convertTo12HourFormat(selectedSlot.start_time)} - {convertTo12HourFormat(selectedSlot.end_time)}
+              <strong>Time:</strong> {convertTo12HourFormat(selectedSlot.start_time)} - {convertTo12HourFormat(selectedSlot.end_time)}
             </p>
-            <p>Cost: ${appointmentCost}</p>
+            <p><strong>Consultation Fee:</strong> ${appointmentCost}</p>
             <div className="modal-buttons">
               <button onClick={handleConfirmBooking}>Proceed to Payment</button>
               <button onClick={() => setShowModal(false)}>Cancel</button>
@@ -175,6 +190,7 @@ const AppointmentPage: React.FC = () => {
         <div className="modal-overlay">
           <div className="modal">
             <h3>Payment</h3>
+            <p><strong>Amount:</strong> ${appointmentCost}</p>
             <StripePayment
               amount={appointmentCost}
               userId={user._id}
