@@ -72,7 +72,7 @@ const ChatPage = () => {
     }
 
     try {
-      const newSocket = io(import.meta.env.VITE_WEBSOCKET_URL || "http://localhost:3000", {
+      const newSocket = io(import.meta.env.VITE_WEBSOCKET_URL|| "http://localhost:3000", {
         withCredentials: true
       });
 

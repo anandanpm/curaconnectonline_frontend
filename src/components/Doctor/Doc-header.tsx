@@ -232,7 +232,7 @@ const DocHeader: React.FC = () => {
       console.log("Initializing socket with doctor ID:", doctorId);
 
       // Initialize socket connection
-      socketRef.current = io(import.meta.env.VITE_WEBSOCKET_URL || "http://localhost:3000", {
+      socketRef.current = io(import.meta.env.VITE_WEBSOCKET_URL|| "http://localhost:3000", {
         withCredentials: true,
       });
 
