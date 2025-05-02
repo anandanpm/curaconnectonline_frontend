@@ -8,17 +8,29 @@ import { logoutAdmin } from '../redux/adminSlice';
 
 const userApi = axios.create({
   baseURL: import.meta.env.VITE_USER_API_URL,
-  withCredentials: true
+  withCredentials: true,
+  headers:{
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }
 });
 
 const doctorApi = axios.create({
   baseURL: import.meta.env.VITE_DOCTOR_API_URL,
-  withCredentials: true
+  withCredentials: true,
+  headers:{
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }
 });
 
 const adminApi = axios.create({
   baseURL: import.meta.env.VITE_ADMIN_API_URL,
-  withCredentials: true
+  withCredentials: true,
+  headers:{
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }
 });
 
 
