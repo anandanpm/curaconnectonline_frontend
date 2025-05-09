@@ -62,7 +62,7 @@ const Header: React.FC = () => {
   }
 
   useEffect(() => {
-    socketRef.current = io(import.meta.env.VITE_WEBSOCKET_URL|| "http://localhost:3000", {
+    socketRef.current = io(import.meta.env.VITE_WEBSOCKET_URL, {
       withCredentials: true,
       reconnection: true,
       reconnectionAttempts: 5,

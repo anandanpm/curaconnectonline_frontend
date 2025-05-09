@@ -159,7 +159,7 @@ export const bookAppointment = async (slotId: string, userId: string, amount: nu
     console.log(response, 'the response from the book appointment is coming');
     
     // Connect to websocket to emit notification
-    const socket = io(import.meta.env.VITE_WEBSOCKET_URL || "http://localhost:3000", {
+    const socket = io(import.meta.env.VITE_WEBSOCKET_URL, {
       withCredentials: true,
     });
     
