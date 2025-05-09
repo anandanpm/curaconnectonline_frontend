@@ -16,6 +16,9 @@ import Swal from "sweetalert2"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
+// Import the user status API function
+import { checkUserActive } from "../../api/userApi" // Adjust the import path as needed
+
 interface RootState {
   user: {
     isActive: boolean
@@ -203,82 +206,231 @@ const Header: React.FC = () => {
     })
   }
 
-  const showCallAlert = (data: CallNotificationData) => {
-    const { appointmentId, doctorName, doctorId, roomId } = data
+  // const showCallAlert = (data: CallNotificationData) => {
+  //   const { appointmentId, doctorName, doctorId, roomId } = data
 
-Swal.fire({
-  title: '<div style="font-size: 1.5rem; font-weight: 600; color: #333;">Incoming Video Call</div>',
-  html: `
-    <div style="display: flex; flex-direction: column; align-items: center; margin: 1rem 0;">
-      <div style="width: 80px; height: 80px; background-color: #e9f5e9; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4caf50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polygon points="23 7 16 12 23 17 23 7"></polygon>
-          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-        </svg>
+  //   Swal.fire({
+  //     title: '<div style="font-size: 1.5rem; font-weight: 600; color: #333;">Incoming Video Call</div>',
+  //     html: `
+  //       <div style="display: flex; flex-direction: column; align-items: center; margin: 1rem 0;">
+  //         <div style="width: 80px; height: 80px; background-color: #e9f5e9; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
+  //           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4caf50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  //             <polygon points="23 7 16 12 23 17 23 7"></polygon>
+  //             <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+  //           </svg>
+  //         </div>
+  //         <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Dr. ${doctorName} is calling you</p>
+  //         <p style="color: #666; font-size: 0.9rem;">for your scheduled appointment</p>
+  //       </div>
+  //     `,
+  //     showCancelButton: true,
+  //     confirmButtonText:
+  //       '<span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>Join Call</span>',
+  //     cancelButtonText:
+  //       '<span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>Decline</span>',
+  //     confirmButtonColor: "#4caf50",
+  //     cancelButtonColor: "#f8f9fa",
+  //     allowOutsideClick: false,
+  //     allowEscapeKey: false,
+  //     timer: 60000,
+  //     timerProgressBar: true,
+  //     customClass: {
+  //       popup: "curaconnect-call-popup",
+  //       title: "curaconnect-call-title",
+  //       confirmButton: "curaconnect-confirm-btn",
+  //       cancelButton: "curaconnect-cancel-btn",
+  //     },
+  //     backdrop: `
+  //       rgba(0,0,0,0.4)
+  //       url("/call-ring.gif")
+  //       left top
+  //       no-repeat
+  //     `,
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       try {
+  //         // Check if the user is still active
+  //         if (!id) {
+  //           throw new Error("User ID is undefined");
+  //         }
+  //         const statusResponse = await checkUserActive(id);
+  //         console.log(statusResponse,'the status response is comming or not')
+  //         // If user is not active, log them out
+  //         if (statusResponse === false) {
+  //           // Show message to the user
+  //           Swal.fire({
+  //             title: 'Session Expired',
+  //             text: 'Your session has expired. Please log in again.',
+  //             icon: 'warning',
+  //             confirmButtonColor: '#4caf50',
+  //             confirmButtonText: 'OK'
+  //           }).then(() => {
+  //             // Log out the user
+  //             handleLogout();
+  //             return;
+  //           });
+  //         } else {
+  //           // User is active, inform the server that call was accepted
+  //           if (socketRef.current) {
+  //             socketRef.current.emit("callAccepted", {
+  //               appointmentId,
+  //               roomId: roomId,
+  //               userId: id,
+  //               doctorId: doctorId,
+  //             });
+  //           }
+
+  //           // Pass the roomId to the video call component via URL parameter for reliability
+  //           navigate(`/video-call/${appointmentId}/${roomId}`, {
+  //             state: {
+  //               roomId: roomId, // Also include in state as backup
+  //               appointmentId,
+  //               userId: id,
+  //               userRole: "patient",
+  //               userName: username || "Patient",
+  //               doctorId: doctorId,
+  //             },
+  //           });
+  //         }
+  //       } catch (error) {
+  //         console.error("Error checking user status:", error);
+          
+  //         // Show error message
+  //         Swal.fire({
+  //           title: 'Error',
+  //           text: 'Failed to connect to the call. Please try again.',
+  //           icon: 'error',
+  //           confirmButtonColor: '#4caf50',
+  //           confirmButtonText: 'OK'
+  //         });
+  //       }
+  //     } else {
+  //       console.log("Call declined");
+  //       if (socketRef.current) {
+  //         socketRef.current.emit("callDeclined", {
+  //           appointmentId,
+  //           userId: id,
+  //           doctorId: doctorId,
+  //         });
+  //       }
+  //     }
+  //   });
+  // };
+
+
+  // Fix for user status check in showCallAlert function
+
+const showCallAlert = (data: CallNotificationData) => {
+  const { appointmentId, doctorName, doctorId, roomId } = data
+
+  Swal.fire({
+    title: '<div style="font-size: 1.5rem; font-weight: 600; color: #333;">Incoming Video Call</div>',
+    html: `
+      <div style="display: flex; flex-direction: column; align-items: center; margin: 1rem 0;">
+        <div style="width: 80px; height: 80px; background-color: #e9f5e9; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4caf50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+          </svg>
+        </div>
+        <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Dr. ${doctorName} is calling you</p>
+        <p style="color: #666; font-size: 0.9rem;">for your scheduled appointment</p>
       </div>
-      <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Dr. ${doctorName} is calling you</p>
-      <p style="color: #666; font-size: 0.9rem;">for your scheduled appointment</p>
-    </div>
-  `,
-  showCancelButton: true,
-  confirmButtonText:
-    '<span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>Join Call</span>',
-  cancelButtonText:
-    '<span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>Decline</span>',
-  confirmButtonColor: "#4caf50",
-  cancelButtonColor: "#f8f9fa",
-  allowOutsideClick: false,
-  allowEscapeKey: false,
-  timer: 60000,
-  timerProgressBar: true,
-  customClass: {
-    popup: "curaconnect-call-popup",
-    title: "curaconnect-call-title",
-    confirmButton: "curaconnect-confirm-btn",
-    cancelButton: "curaconnect-cancel-btn",
-  },
-  backdrop: `
-    rgba(0,0,0,0.4)
-    url("/call-ring.gif")
-    left top
-    no-repeat
-  `,
-}).then((result) => {
-      if (result.isConfirmed) {
-        // Inform the server that call was accepted
-        if (socketRef.current) {
-          socketRef.current.emit("callAccepted", {
-            appointmentId,
-            roomId: roomId,
-            userId: id,
-            doctorId: doctorId,
-          })
+    `,
+    showCancelButton: true,
+    confirmButtonText:
+      '<span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>Join Call</span>',
+    cancelButtonText:
+      '<span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>Decline</span>',
+    confirmButtonColor: "#4caf50",
+    cancelButtonColor: "#f8f9fa",
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    timer: 60000,
+    timerProgressBar: true,
+    customClass: {
+      popup: "curaconnect-call-popup",
+      title: "curaconnect-call-title",
+      confirmButton: "curaconnect-confirm-btn",
+      cancelButton: "curaconnect-cancel-btn",
+    },
+    backdrop: `
+      rgba(0,0,0,0.4)
+      url("/call-ring.gif")
+      left top
+      no-repeat
+    `,
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        // Check if the user is still active
+        if (!id) {
+          throw new Error("User ID is undefined");
         }
+        
+        const statusResponse = await checkUserActive(id);
+        console.log('User active status response:', statusResponse);
+        
+        // If user is not active (statusResponse is explicitly false), log them out
+        if (statusResponse === false) {
+          // Show message to the user
+          Swal.fire({
+            title: 'Session Expired',
+            text: 'Your session has expired. Please log in again.',
+            icon: 'warning',
+            confirmButtonColor: '#4caf50',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            // Log out the user
+            handleLogout();
+          });
+        } else {
+          // User is active, inform the server that call was accepted
+          if (socketRef.current) {
+            socketRef.current.emit("callAccepted", {
+              appointmentId,
+              roomId: roomId,
+              userId: id,
+              doctorId: doctorId,
+            });
+          }
 
-        // Pass the roomId to the video call component via URL parameter for reliability
-        navigate(`/video-call/${appointmentId}/${roomId}`, {
-          state: {
-            roomId: roomId, // Also include in state as backup
-            appointmentId,
-            userId: id,
-            userRole: "patient",
-            userName: username || "Patient",
-            doctorId: doctorId,
-          },
-        })
-      } else {
-        console.log("Call declined")
-        if (socketRef.current) {
-          socketRef.current.emit("callDeclined", {
-            appointmentId,
-            userId: id,
-            doctorId: doctorId,
-          })
+          // Pass the roomId to the video call component via URL parameter for reliability
+          navigate(`/video-call/${appointmentId}/${roomId}`, {
+            state: {
+              roomId: roomId, // Also include in state as backup
+              appointmentId,
+              userId: id,
+              userRole: "patient",
+              userName: username || "Patient",
+              doctorId: doctorId,
+            },
+          });
         }
+      } catch (error) {
+        console.error("Error checking user status:", error);
+        
+        // Show error message
+        Swal.fire({
+          title: 'Error',
+          text: 'you are blocked by admin contact the admin.',
+          icon: 'error',
+          confirmButtonColor: '#4caf50',
+          confirmButtonText: 'OK'
+        });
       }
-    })
-  }
-
+    } else {
+      console.log("Call declined");
+      if (socketRef.current) {
+        socketRef.current.emit("callDeclined", {
+          appointmentId,
+          userId: id,
+          doctorId: doctorId,
+        });
+      }
+    }
+  });
+};
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -446,4 +598,3 @@ Swal.fire({
 }
 
 export default Header
-

@@ -1,7 +1,7 @@
 
 import type React from "react"
 import { useState, useEffect, useCallback } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import type { RootState } from "../../redux/store"
 import { fetchDoctorSlots, bookAppointment } from "../../api/userApi"
@@ -19,8 +19,10 @@ interface Slot {
   updated_at?: Date
 }
 
+
 const AppointmentPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
   const [slots, setSlots] = useState<Slot[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -28,7 +30,9 @@ const AppointmentPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
   const [showPayment, setShowPayment] = useState(false)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
-  const [appointmentCost, setAppointmentCost] = useState(50) 
+  const [appointmentCost, setAppointmentCost] = useState(50)
+  const [bookingError, setBookingError] = useState<string | null>(null)
+  const [showBookingErrorModal, setShowBookingErrorModal] = useState(false)
   const doctor = useSelector((state: RootState) => state.user.doctor.find((d) => d._id === id))
   const user = useSelector((state: RootState) => state.user)
 
@@ -82,14 +86,55 @@ const AppointmentPage: React.FC = () => {
   const handlePaymentSuccess = async (paymentIntentId: string) => {
     if (selectedSlot && selectedSlot._id) {
       try {
-        await bookAppointment(selectedSlot._id, user._id, appointmentCost, paymentIntentId)
-        setSlots((prevSlots) =>
-          prevSlots.map((slot) => (slot._id === selectedSlot._id ? { ...slot, status: "booked" } : slot))
-        )
+        // Attempt to book the appointment
+        const response = await bookAppointment(selectedSlot._id, user._id, appointmentCost, paymentIntentId)
+        
+        // Refresh slots to get updated status
+        await fetchSlots()
+        
+        // Close payment modal
         setShowPayment(false)
+        
+        // Make sure we have a valid response before navigating to success
+        if (response && response.success) {
+          console.log(response,'this is the response come from the backend thorught the book appointment')
+          // Navigate to success page since booking was successful
+          navigate('/appointment/success', { 
+            state: { 
+              appointmentDetails: response.appointment,
+              doctorName: doctor?.username,
+              appointmentDate: selectedSlot.day,
+              appointmentTime: `${convertTo12HourFormat(selectedSlot.start_time)} - ${convertTo12HourFormat(selectedSlot.end_time)}`,
+              appointmentCost
+            } 
+          })
+        } else {
+          // Handle case where response exists but success is false
+          throw new Error(response?.message || "Failed to book appointment");
+        }
+        
+        // Reset selected slot
         setSelectedSlot(null)
-      } catch (err) {
-        setError("Failed to book appointment")
+      } catch (err: any) {
+        console.error("Booking error:", err)
+        
+        // Extract error message from Axios error response if available
+        let errorMessage = "This slot is no longer available. It may have been booked by someone else."
+        
+        if (err.response && err.response.data && err.response.data.message) {
+          // Get error message from Axios response
+          errorMessage = err.response.data.message
+        } else if (err.message) {
+          // Use error message directly if available
+          errorMessage = err.message
+        }
+        
+        // Show error modal with the error message from the backend
+        setBookingError(errorMessage)
+        setShowPayment(false)
+        setShowBookingErrorModal(true)
+        
+        // DO NOT navigate to success page on error
       }
     }
   }
@@ -106,6 +151,13 @@ const AppointmentPage: React.FC = () => {
       month: "long",
       day: "numeric",
     })
+  }
+
+  const closeBookingErrorModal = () => {
+    setShowBookingErrorModal(false)
+    setBookingError(null)
+    // Refresh slots after error to get the latest status
+    fetchSlots()
   }
 
   if (loading) return <div className="loading">Loading...</div>
@@ -198,6 +250,24 @@ const AppointmentPage: React.FC = () => {
               onSuccess={handlePaymentSuccess}
               onCancel={handlePaymentCancel}
             />
+          </div>
+        </div>
+      )}
+
+      {showBookingErrorModal && (
+        <div className="modal-overlay">
+          <div className="modal error-modal">
+            <h3>Booking Failed</h3>
+            <div className="error-icon">
+              <i className="fas fa-exclamation-circle"></i>
+            </div>
+            <p className="error-message">{bookingError}</p>
+            <p>Your appointment could not be booked. The selected time slot may have been booked by another patient.</p>
+            <p>Your payment has been processed but will be refunded automatically.</p>
+            <p>Please select another available time slot to continue.</p>
+            <div className="modal-buttons">
+              <button onClick={closeBookingErrorModal}>Choose Another Slot</button>
+            </div>
           </div>
         </div>
       )}

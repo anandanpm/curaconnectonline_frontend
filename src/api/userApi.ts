@@ -127,34 +127,107 @@ export const fetchDoctorSlots = async (doctorId: string) => {
   }
 }
 
+
 export const bookAppointment = async (slotId: string, userId: string, amount: number, paymentId: string) => {
   try {
-    const response = await userApi.post(`/book-appointment`, { slotId, userId, amount, paymentId });
+    // First, attempt to lock the slot
+    const lockResponse = await userApi.post(`/lock-slot`, { 
+      slotId, 
+      userId,
+      lockExpiration: new Date(Date.now() + 5 * 60 * 1000) 
+    });
+    
+    // If lock wasn't successful, throw an error with the message from the server
+    if (!lockResponse.data.success) {
+      throw new Error(lockResponse.data.message || "This slot is no longer available");
+    }
+    
+    // If the lock was successful, proceed with booking
+    const response = await userApi.post(`/book-appointment`, { 
+      slotId, 
+      userId, 
+      amount, 
+      paymentId,
+      lockId: lockResponse.data.lockId 
+    });
+    
+    // If the booking response indicates a problem, throw an error
+    if (!response.data.success) {
+      throw new Error(response.data.message || "Failed to book appointment");
+    }
+    
     console.log(response, 'the response from the book appointment is coming');
     
-    // Access the socket server
+    // Connect to websocket to emit notification
     const socket = io(import.meta.env.VITE_WEBSOCKET_URL || "http://localhost:3000", {
       withCredentials: true,
     });
     
-    // Extract appointment and slot data from response
     const appointment = response.data.appointment;
     const slot = response.data.updatedSlot;
     
-    // Send notification through WebSocket
+    // Emit the event to notify the doctor
     socket.emit("newAppointmentBooked", {
-      doctorId: slot._doc.doctor_id, // From the updatedSlot
-      patientId: appointment._doc.user_id, // From the appointment
-      // If patientName isn't in the response, you'll need to fetch it separately
-      // or modify your API to include it
-      appointmentDate: slot._doc.day, // From the updatedSlot
-      appointmentTime: `${slot._doc.start_time} - ${slot._doc.end_time}`, // From the updatedSlot
-      appointmentId: appointment._doc._id, // From the appointment
+      doctorId: slot._doc.doctor_id,
+      patientId: appointment._doc.user_id, 
+      appointmentDate: slot._doc.day, 
+      appointmentTime: `${slot._doc.start_time} - ${slot._doc.end_time}`, 
+      appointmentId: appointment._doc._id, 
     });
     
     return response.data;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    console.error("Error in bookAppointment:", error);
+    
+    // Handle Axios errors specifically to extract proper error messages
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.error("Response error data:", error.response.data);
+      console.error("Response error status:", error.response.status);
+      
+      // Create a more informative error by including the server's error message
+      const serverMessage = error.response.data && error.response.data.message 
+        ? error.response.data.message 
+        : "Unknown server error";
+        
+      // For 409 Conflict errors, provide a specific message
+      if (error.response.status === 409) {
+        throw new Error("This slot is no longer available. It may have been booked by someone else.");
+      }
+      
+      throw new Error(serverMessage);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error("Request error:", error.request);
+      throw new Error("No response received from server. Please try again later.");
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error("Error message:", error.message);
+      // Re-throw the original error
+      throw error;
+    }
+  }
+};
+
+export const checkUserActive = async (userId: string) => {
+  try {
+    const response = await userApi.get(`/users/status/${userId}`);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error checking user status:", error);
+    
+    if (error.response) {
+      const serverMessage = error.response.data && error.response.data.message 
+        ? error.response.data.message 
+        : "Failed to verify user status";
+      
+      throw new Error(serverMessage);
+    } else if (error.request) {
+      throw new Error("No response received from server. Please try again later.");
+    } else {
+      throw error;
+    }
   }
 };
 

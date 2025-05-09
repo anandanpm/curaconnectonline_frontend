@@ -1,3 +1,364 @@
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+// $primary-color: #3498db;
+// $secondary-color: #2ecc71;
+// $danger-color: #e74c3c;
+// $text-color: #333;
+// $background-color: #f8f9fa;
+// $card-background: #ffffff;
+// $border-color: #e0e0e0;
+
+// @mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+//   transition: $property $duration $timing;
+// }
+
+// .doctor-list {
+//   font-family: 'Poppins', sans-serif;
+//   padding: 40px;
+//   background-color: $background-color;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+
+//   &__title {
+//     font-size: 32px;
+//     font-weight: 600;
+//     margin-bottom: 30px;
+//     color: $text-color;
+//     text-align: center;
+//   }
+
+//   &__container {
+//     width: 100%;
+//     display: grid;
+//     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+//     gap: 30px;
+//   }
+// }
+
+// .verify-doctor-btn {
+//   background-color: $primary-color;
+//   border: none;
+//   color: white;
+//   padding: 12px 24px;
+//   text-align: center;
+//   text-decoration: none;
+//   display: inline-block;
+//   font-size: 16px;
+//   font-weight: 600;
+//   margin: 20px 0;
+//   cursor: pointer;
+//   border-radius: 8px;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//   transition: all 0.3s ease;
+//   align-self: flex-end;
+
+//   &:hover {
+//     background-color: darken($primary-color, 10%);
+//     transform: translateY(-2px);
+//     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+//   }
+
+//   &:active {
+//     transform: translateY(0);
+//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   }
+// }
+
+// .doctor-list {
+
+//   &__loading,
+//   &__error {
+//     font-size: 18px;
+//     text-align: center;
+//     margin-top: 40px;
+//     color: $text-color;
+//   }
+// }
+
+// .doctor-card {
+//   display: flex;
+//   flex-direction: column;
+//   border: 1px solid $border-color;
+//   border-radius: 12px;
+//   overflow: hidden;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//   background-color: $card-background;
+//   @include transition(transform);
+
+//   &:hover {
+//     transform: translateY(-5px);
+//   }
+
+//   &__left {
+//     padding: 30px;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     background-color: lighten($primary-color, 40%);
+//   }
+
+//   &__right {
+//     flex: 1;
+//     padding: 30px;
+//   }
+
+//   &__profile-pic-container {
+//     width: 150px;
+//     height: 150px;
+//     border-radius: 50%;
+//     overflow: hidden;
+//     margin-bottom: 20px;
+//     border: 4px solid $card-background;
+//     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+//   }
+
+//   &__profile-pic {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//   }
+
+//   &__name {
+//     font-size: 24px;
+//     font-weight: 600;
+//     color: $text-color;
+//     margin-bottom: 20px;
+//     text-align: center;
+//   }
+
+//   &__details {
+//     display: grid;
+//     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+//     gap: 20px;
+
+//     p {
+//       margin: 0;
+//       color: $text-color;
+//       font-size: 14px;
+
+//       strong {
+//         font-weight: 600;
+//         margin-right: 5px;
+//       }
+//     }
+//   }
+
+//   &__actions {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 15px;
+//     width: 100%;
+//     margin-top: 20px;
+//   }
+
+//   &__toggle-btn,
+//   &__verify-btn {
+//     width: 100%;
+//     padding: 12px;
+//     border: none;
+//     border-radius: 6px;
+//     cursor: pointer;
+//     font-weight: 600;
+//     font-size: 14px;
+//     @include transition(background-color, color);
+//   }
+
+//   &__toggle-btn {
+//     &.active {
+//       background-color: $danger-color;
+//       color: white;
+
+//       &:hover {
+//         background-color: darken($danger-color, 10%);
+//       }
+//     }
+
+//     &.blocked {
+//       background-color: $secondary-color;
+//       color: white;
+
+//       &:hover {
+//         background-color: darken($secondary-color, 10%);
+//       }
+//     }
+//   }
+
+//   &__verify-btn {
+//     &.verified {
+//       background-color: $secondary-color;
+//       color: white;
+
+//       &:hover {
+//         background-color: darken($secondary-color, 10%);
+//       }
+//     }
+
+//     &.not-verified {
+//       background-color: $danger-color;
+//       color: white;
+
+//       &:hover {
+//         background-color: darken($danger-color, 10%);
+//       }
+//     }
+//   }
+
+//   &__view-cert {
+//     background-color: $primary-color;
+//     color: white;
+//     border: none;
+//     padding: 8px 12px;
+//     border-radius: 4px;
+//     cursor: pointer;
+//     font-size: 14px;
+//     font-weight: 500;
+//     @include transition(background-color);
+
+//     &:hover {
+//       background-color: darken($primary-color, 10%);
+//     }
+//   }
+
+//   &__no-cert {
+//     color: #999;
+//     font-style: italic;
+//   }
+
+//   &__about {
+//     position: relative;
+
+//     p {
+//       max-height: 100px;
+//       overflow: hidden;
+//       @include transition(max-height);
+
+//       &.expanded {
+//         max-height: 1000px;
+//       }
+//     }
+//   }
+
+//   &__about-toggle {
+//     position: absolute;
+//     bottom: 0;
+//     right: 0;
+//     background-color: transparent;
+//     border: none;
+//     cursor: pointer;
+//     color: $primary-color;
+//     @include transition(transform);
+
+//     &:hover {
+//       transform: translateY(-2px);
+//     }
+//   }
+// }
+
+// .doctor-list__modal {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(0, 0, 0, 0.8);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   z-index: 1000;
+//   @include transition(opacity);
+
+//   &-content {
+//     position: relative;
+//     max-width: 90%;
+//     max-height: 90%;
+//     background-color: $card-background;
+//     border-radius: 12px;
+//     padding: 20px;
+//     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+//     img {
+//       max-width: 100%;
+//       max-height: 100%;
+//       object-fit: contain;
+//       border-radius: 8px;
+//     }
+//   }
+
+//   &-close {
+//     position: absolute;
+//     top: 10px;
+//     right: 10px;
+//     background-color: transparent;
+//     border: none;
+//     cursor: pointer;
+//     color: $text-color;
+//     font-size: 24px;
+//     @include transition(transform);
+
+//     &:hover {
+//       transform: scale(1.1);
+//     }
+//   }
+// }
+
+// .pagination {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin-top: 30px;
+//   gap: 10px;
+
+//   &__btn {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 40px;
+//     height: 40px;
+//     border: 1px solid $border-color;
+//     background-color: $card-background;
+//     color: $text-color;
+//     font-size: 14px;
+//     cursor: pointer;
+//     border-radius: 4px;
+//     @include transition(all);
+
+//     &:hover:not(:disabled) {
+//       background-color: $primary-color;
+//       color: white;
+//     }
+
+//     &.active {
+//       background-color: $primary-color;
+//       color: white;
+//     }
+
+//     &:disabled {
+//       opacity: 0.5;
+//       cursor: not-allowed;
+//     }
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .doctor-list {
+//     padding: 20px;
+//   }
+
+//   .doctor-card {
+//     flex-direction: column;
+
+//     &__left,
+//     &__right {
+//       width: 100%;
+//     }
+//   }
+
+//   .pagination {
+//     flex-wrap: wrap;
+//   }
+// }
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 $primary-color: #3498db;
@@ -34,6 +395,63 @@ $border-color: #e0e0e0;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
   }
+  
+  &__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  &__search-container {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  &__search-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: $card-background;
+    border-radius: 8px;
+    padding: 0 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid $border-color;
+  }
+  
+  &__search-icon {
+    color: #aaa;
+    width: 20px;
+    height: 20px;
+  }
+  
+  &__search-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: $text-color;
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+    
+    &::placeholder {
+      color: #aaa;
+    }
+  }
+  
+  &__no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+    background-color: $card-background;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    color: #777;
+  }
 }
 
 .verify-doctor-btn {
@@ -46,12 +464,10 @@ $border-color: #e0e0e0;
   display: inline-block;
   font-size: 16px;
   font-weight: 600;
-  margin: 20px 0;
   cursor: pointer;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  align-self: flex-end;
 
   &:hover {
     background-color: darken($primary-color, 10%);
@@ -338,11 +754,36 @@ $border-color: #e0e0e0;
       cursor: not-allowed;
     }
   }
+  
+  &__ellipsis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    color: $text-color;
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 768px) {
   .doctor-list {
     padding: 20px;
+    
+    &__header {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    &__search-container {
+      width: 100%;
+      order: 1;
+    }
+  }
+
+  .verify-doctor-btn {
+    width: 100%;
+    order: 2;
   }
 
   .doctor-card {

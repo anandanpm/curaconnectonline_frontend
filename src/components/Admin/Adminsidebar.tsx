@@ -26,7 +26,7 @@ const navItems = [
   { path: '/admin/dashboard', label: 'Dashboard', icon: <DashboardIcon /> },
   { path: '/admin/patients', label: 'Patients', icon: <PeopleIcon /> },
   { path: '/admin/doctors', label: 'Doctors', icon: <DoctorIcon /> },
-  { path: '/admin/review', label: 'review', icon: <AssignmentIcon /> },
+  { path: '/admin/review', label: 'Review', icon: <AssignmentIcon /> },
 ];
 
 const Sidebar: React.FC = () => {

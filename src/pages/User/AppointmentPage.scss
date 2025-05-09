@@ -1,3 +1,4 @@
+
 .appointment-page {
   max-width: 800px;
   margin: 0 auto;
@@ -126,7 +127,9 @@
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 300px;
+    width: 350px;
+    max-width: 90%;
+    text-align: center;
 
     h3 {
       margin-top: 0;
@@ -154,5 +157,37 @@
         }
       }
     }
+
+    &.error-modal {
+      .error-icon {
+        font-size: 48px;
+        color: #f44336;
+        margin: 15px 0;
+      }
+
+      .error-message {
+        font-weight: bold;
+        color: #f44336;
+        margin-bottom: 15px;
+      }
+
+      .modal-buttons {
+        justify-content: center;
+
+        button {
+          background-color: #007E85;
+          color: white;
+          padding: 10px 30px;
+        }
+      }
+    }
+  }
+
+  .no-slots-message {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
   }
 }

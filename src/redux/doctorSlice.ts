@@ -300,6 +300,7 @@ const doctorSlice = createSlice({
       .addCase(googleAuthDoctor.fulfilled, (state, action) => {
         state.loading = false;
         state.username = action.payload.username;
+        state._id = action.payload._id;
         state.email = action.payload.email;
         state.isActive = action.payload.isActive;
         state.verified = action.payload.verified;
